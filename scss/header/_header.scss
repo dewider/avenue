@@ -1,0 +1,81 @@
+@import "_cart.scss";
+@import "_cart-button.scss";
+@import "_header-menu.scss";
+@import "_logo.scss";
+@import "_submenu-banner.scss";
+@import "_search-field.scss";
+@import "_show-menu-button.scss";
+
+.header{
+    &__top-container{
+        height: inherit;
+        align-items: center;
+        padding-left: 15px;
+    }
+    &__container-xl{
+        position: absolute;
+        padding: 18px 0 0 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        z-index: 99;
+    }
+    &__logo{
+        width: 20%;
+        z-index: 10;
+    }
+    &__search{
+        width: 80%;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 1199px){
+    .header{
+        &__container-xl{
+            padding: 10px 15px 0 15px;
+            width: 100%;
+        }
+        &__logo{
+            display: flex;
+            align-items: center;
+            width: 30%;
+        }
+        &__search{
+            width: 70%;
+        }
+    }
+}
+
+@media (max-width: 575px){
+    .header{
+        &__top.stop-line{
+            padding-right: 0;
+            .stop-line__left-part{
+                width: 20%;
+            }
+            .stop-line__right-part{
+                width: 80%;
+                &-item{
+                    margin-right: 25px;
+                }
+            }
+        }
+        &__top{
+            &-currency{
+                span{
+                    display: none;
+                }
+            }
+        }
+        &__logo{
+            width: 70%;
+        }
+        &__search{
+            width: 30%;
+            .search-field{
+                display: none;
+            }
+        }
+    }
+}

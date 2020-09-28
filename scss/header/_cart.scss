@@ -1,0 +1,28 @@
+.header .cart{
+
+    position: absolute;
+    top: 100%;
+    z-index: 150;
+    background: #fff;
+    padding: 15px 20px;
+}
+
+.cart{
+    display: none;
+    &__item{
+        display: flex;
+        margin-bottom: 8px;
+        &-title{
+            margin-right: 5px;
+            width: 250px;
+        }
+        &-price{
+            margin-right: 8px;
+            width: 60px;
+        }
+    }
+}
+.cart-button:hover ~ .cart,
+.cart:hover{
+    display: flex;
+}

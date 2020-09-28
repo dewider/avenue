@@ -1,0 +1,45 @@
+.stop-line{
+    height: 45px;
+    background: $dark-gray-color;
+    display: flex;
+    align-items: center;
+    color: $light-gray-color;
+    font-size: 13px;
+    @include montserrat-bold;
+
+    &__left-part{
+        display: flex;
+        width: 30%;
+        height: inherit;
+        align-items: center;
+    }
+    &__right-part{
+        display: flex;
+        position: relative;
+        width: 70%;
+        height: inherit;
+        justify-content: flex-end;
+        align-items: center;
+        &-item{
+            margin: 0 36px 0 0;
+            font-size: 13px;
+            a:hover{
+                color: $turquoise-color;
+            }
+        }
+        &-item:last-child{
+            margin-right: 0;
+        }
+    }
+    &__cart-button{
+        margin-left: 47px;
+    }
+}
+
+@media (max-width: 767px){
+    .stop-line{
+        &__cart-button{
+            margin-left: 0;
+        }
+    }
+}

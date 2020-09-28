@@ -1,0 +1,20 @@
+/*
+ * Catalog pagination
+*/
+
+.catalog-pagination{
+
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 15px 0;
+    ul{
+        display: flex;
+        li{
+            margin-right: 10px;
+            .current{
+                color: $turquoise-color;
+            }
+        }
+    }
+}

@@ -1,0 +1,55 @@
+.top-banner{
+    height: 920px;
+    background: url("./img/slider-bg.jpg");
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    &__button{
+        position: absolute;
+        bottom: 122px;
+        right: 194px;;
+    }
+}
+
+@media (max-width: 1510px){
+
+    .top-banner{
+        height: 690px;
+    }
+}
+
+@media (max-width: 1199px){
+    .top-banner{
+        height: 560px;
+        &__button{
+            bottom: 60px;
+            right: 80px;
+        }
+    }
+}
+
+@media (max-width: 991px){
+    .top-banner{
+        height: 410px;
+    }
+}
+
+@media (max-width: 767px){
+    .top-banner{
+        height: 325px;
+        &__button{
+            right: 60px;
+            bottom: 35px;
+        }
+    }
+}
+
+@media (max-width: 575px){
+    .top-banner{
+        height: 215px;
+        &__button{
+            right: 5px;
+            bottom: 15pxs;
+        }
+    }
+}

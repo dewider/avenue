@@ -1,0 +1,17 @@
+.show-menu-button{
+    margin-right: 20px;
+    display: none;
+}
+.close-menu-button{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: none;
+}
+
+@media (max-width: 1199px){
+    .show-menu-button,
+    .close-menu-button{
+        display: initial;
+    }
+}

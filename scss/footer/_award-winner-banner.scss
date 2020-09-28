@@ -1,0 +1,23 @@
+.award-winner-banner{
+    background: $dark-gray-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    height: 200px;
+    text-align: center;
+    font-size: 36px;
+}
+
+@media (max-width: 991px){
+    .award-winner-banner{
+        font-size: 25px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 787px){
+    .award-winner-banner{
+        font-size: 18px;
+    }
+}

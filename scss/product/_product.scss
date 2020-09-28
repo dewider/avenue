@@ -1,0 +1,293 @@
+@import "_qty-selector.scss";
+@import "_product-preview.scss";
+
+.product{
+    padding: 60px 0 125px 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    color: #8c8c8c;
+    // TOP PART
+    &__top{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        padding-bottom: 40px;
+    }
+    &__preview{
+        padding: 0 15px 0 0;
+        width: 50%;
+        .product-preview{
+            height: 715px;
+        }
+    }
+    &__text{
+        padding: 0 0 0 15px;
+        width: 50%;
+    }
+    &__title{
+        font-size: 18px;
+        color: #575153;
+        margin: 0 0 23px 0;
+    }
+    &__feedback{
+        margin: 0 0 17px 0;
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 14px;
+        button:hover,
+        a:hover{
+            color: $turquoise-color;
+        }
+    }
+    &__stars{
+        font-size: 16px;
+        color: #dfdfde;
+        margin: 0 10px 0 0;
+        ul{
+            display: flex;
+        }
+        .gold{
+            color: #ded3aa
+        }
+    }
+    &__add-review-button{
+        margin: 0 0 0 15px;
+        padding: 0 0 0 15px;
+        border-left: 1px solid #a6a6a6;
+    }
+    &__share-buttons{
+        margin: 0 0 0 15px;
+        padding: 0 0 0 15px;
+        border-left: 1px solid #a6a6a6;
+        display: flex;
+        ul{
+            display: flex;
+            margin: 0 0 0 10px;
+            li{
+                margin: 0 15px 0 0;
+            }
+            li:last-child(){
+                margin-right: 0;
+            }
+        }
+    }
+    &__price{
+        font-size: 30px;
+        color: #9a9a9a;
+        margin: 0 0 38px 0;
+        font-weight: 300;
+    }
+    &__details{
+        font-size: 13px;
+        margin: 0 0 34px 0;
+        ul li{
+            margin: 0 0 14px 0;
+        }
+        .bold{
+            color: #575153;
+        }
+    }
+    &__tags{
+        color: $turquoise-color;
+    }
+    &__short{
+        font-size: 15px;
+        font-family: $roboto-font;
+        height: 195px;
+        margin: 0 0 10px 0;
+        p{
+            margin: 0 0 15px 0;
+            line-height: 1.4;
+        }
+        ul{
+            list-style: disc inside;
+            li{
+                margin: 0 0 6px 0;
+            }
+        }
+    }
+    &__specs{
+        margin: 0 0 30px 0;
+        form{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        &-field{
+            margin: 0 20px 15px 0;
+            label{
+                display: block;
+                font-size: 13px;
+                font-weight: bold;
+                margin: 0 0 15px 0;
+                color: #575153;
+            }
+        }
+        select, input{
+            padding: 13px 10px 10px 10px;
+            border: 1px solid #e7e7e7;
+            font-size: 13px;
+            option[disabled]{
+                display: none;
+            }
+        }
+        select{
+            width: 170px;
+        }
+    }
+    &__buttons{
+        margin: 0 0 15px 0;
+        button{
+            border-color: #333333;
+            color: #454647;
+            margin: 0 25px 20px 0;
+            i{
+                margin-right: 12px;
+            }
+        }
+        button:hover{
+            border-color: #333333;
+            background: #333333;
+        }
+        button:last-child{
+            margin-right: 0;
+        }
+    }
+    &__to-compare{
+        button{
+            display: flex;
+            align-items: center;
+            color: #454647;
+            font-size: 14px;
+            letter-spacing: 1.5pt;
+        }
+        .circle-button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background: #727272;
+            color: #fff;
+            margin-right: 12px;
+            letter-spacing: 0;
+        }
+    }
+    // BOTTOM PART
+    &__bottom{
+        width: 100%;
+    }
+    &__tabs{
+        background: #f8f8f8;
+        color: #575153;
+        ul{
+            display: flex;
+            flex-wrap: wrap;
+            li{
+                padding: 20px 15px;
+                margin-right: 55px;
+            }
+            li:hover,
+            li.active{
+                background: #333333;
+                color: #fff;
+            }
+        }
+    }
+    &__desc{
+        padding: 21px 15px 0 15px;
+        font-size: 13px;
+        font-family: $roboto-font;
+        h2{
+            padding-bottom: 11px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        p{
+            padding-bottom: 30px;
+            line-height: 1.65;
+        }
+        p:last-child{
+            padding-bottom: 0;
+        }
+    }
+}
+
+@media (max-width: 1199px){
+    .product{
+        &__preview{
+            .product-preview{
+                height: 600px;
+            }
+        }
+        &__share-buttons{
+            padding-top: 8px;
+            margin-left: 0;
+            border-left: 0;
+            padding-left: 0;
+        }
+    }
+}
+
+@media (max-width: 991px){
+    .product{
+        &__preview{
+            .product-preview{
+                height: 500px;
+            }
+        }
+        &__price{
+            font-size: 26px;
+            margin-bottom: 26px;
+        }
+        &__details{
+            font-size: 12px;
+            margin-bottom: 24px;
+            ul li{
+                margin-bottom: 10px;
+            }
+        }
+        &__short{
+            height: initial;
+            margin-bottom: 18px;
+            font-size: 13px;
+        }
+        &__specs{
+            &-field{
+                label{
+                    margin-bottom: 5px;
+                }
+            }
+        }
+        &__tabs{
+            ul{
+                li{
+                    padding: 15px 10px;
+                    margin-right: 33px;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 767px){
+    .product{
+        &__preview{
+            width: 100%;
+            margin-bottom: 15px;
+            padding-right: 0;
+        }
+        &__text{
+            width: 100%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        &__tabs{
+            ul{
+                justify-content: center;
+            }
+        }
+    }
+}

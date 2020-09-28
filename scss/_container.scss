@@ -1,0 +1,26 @@
+.container{
+    margin: 0 auto 0 auto;
+    width: 1170px;
+    display: flex;
+}
+
+.container-xl{
+    margin: 0 auto 0 auto;
+    width: 1770px;
+    display: flex;
+}
+
+@media (max-width: 1799px){
+    .container-xl{
+        width: 1170px;
+    }
+}
+
+@media (max-width: 1199px){
+    .container{
+        width: 100%;
+    }
+    .container-xl{
+        width: 100%;
+    }
+}

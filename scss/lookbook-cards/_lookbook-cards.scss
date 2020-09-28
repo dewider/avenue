@@ -1,0 +1,50 @@
+@import "_lookbook-card.scss";
+
+.lookbook-cards{
+    display: flex;
+    padding: 65px 0 125px 0;
+    &__left-col{
+        display: flex;
+        width: 33.3333%;
+    }
+    &__center-col{
+        width: 33.33333%;
+        .lookbook-card{
+            margin: 0 auto;
+        }
+    }
+    &__right-col{
+        width: 33.333333%;
+        .lookbook-card{
+            margin: 0 0 0 auto;
+        }
+    }
+}
+
+@media (max-width: 1510px){
+    .lookbook-cards{
+        flex-direction: column;
+        width: 900px;
+        margin: 0 auto;
+        &__left-col,
+        &__center-col,
+        &__right-col{
+            width: 100%;
+            margin-bottom: 30px;
+        }
+    }
+}
+
+@media (max-width: 1199px){
+    .lookbook-cards{
+        padding-top: 40px;
+        padding-bottom: 80px;
+    }
+}
+
+@media (max-width: 991px){
+    .lookbook-cards{
+        width: 100%;
+        padding-bottom: 40px;
+    }
+}

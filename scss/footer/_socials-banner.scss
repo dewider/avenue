@@ -1,0 +1,40 @@
+.socials-banner{
+    background: $turquoise-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    height: 200px;
+    text-align: center;
+    font-size: 36px;
+    &__content{
+        ul{
+            display: flex;
+            li{
+                margin: 0 50px 0 0;
+            }
+            li:last-child{
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 991px){
+    .socials-banner{
+        height: 150px;
+    }
+}
+@media (max-width: 787px){
+    .socials-banner{
+        font-size: 26px;
+        &__content{
+            ul{
+                li{
+                    margin-right: 35px;
+                }
+            }
+        }
+    }
+}
+

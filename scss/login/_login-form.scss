@@ -1,0 +1,91 @@
+.login-form{
+    color: #8e8c8c;
+    font-size: 15px;
+    label{
+        display: block;
+        margin-bottom: 45px;
+        font-size: 18px;
+        color: #575153;
+        font-weight: 600;
+    }
+    input:not([type=submit]){
+        border: 1px solid #e7e7e7;
+    }
+    input[type=password],
+    input[type=text]{
+        padding: 15px 9px;
+        font-size: 15px;
+        color: #989898;
+        margin-bottom: 34px;
+        width: 100%;
+    }
+    input[type=password]:last-of-type{
+        margin-bottom: 30px;
+    }
+    input[type=checkbox]{
+        height: 22px;
+        width: 22px;
+    }
+    input.error{
+        border-color: #ffaaaa;
+        background-color: #ffeeee;
+    }
+    &__confirm{
+        padding-top: 4px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        input[type=checkbox]{
+            margin-right: 16px;
+        }
+    }
+    &__buttons{
+        display: flex;
+        align-items: center;
+        .fa-long-arrow-alt-right{
+            margin-left: 7px;
+        }
+        a{
+            color: $turquoise-color;
+        }
+        &-left{
+            width: 50%;
+            padding-right: 15px;
+        }
+        &-right{
+            width: 50%;
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}
+
+@media (max-width: 991px){
+    .login-form{
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 767px){
+    .login-form{
+        &__buttons{
+            display: block;
+            &-left,
+            &-right{
+                width: 100%;
+                justify-content: flex-start;
+                margin-bottom: 15px;
+            }
+        }
+    }
+}
+
+@media (max-width: 575px){
+    .login-form{
+        label{
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+    }
+}

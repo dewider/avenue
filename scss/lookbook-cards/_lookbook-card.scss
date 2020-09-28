@@ -1,0 +1,91 @@
+.lookbook-card{
+    width: 620px;
+    height: 530px;
+    background: #f8f8f8;
+    padding: 100px 60px 0 0;
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    &__content{
+        width: 295px;
+        margin: 0 0 0 auto;
+        color: #575153;
+        text-align: right;
+    }
+    &__title{
+        font-size: 48px;
+        padding: 0 0 30px 0;
+    }
+    &__desc{
+        padding: 0 0 30px 0;
+        font-size: 15px;
+        line-height: 1.5;
+        width: 280px;
+        margin: 0 0 0 auto;
+    }
+    &__button .transparrent-button{
+        font-weight: 500;
+    }
+}
+
+@media (max-width: 1880px){
+    .lookbook-card{
+        width: 500px;
+        height: 470px;
+        padding-right: 15px;
+        padding-top: 65px;
+        &__title{
+            font-size: 45px;
+        }
+    }
+}
+
+@media (max-width: 1510px){
+    .lookbook-card{
+        width: 100%;
+        background-size: contain;
+        padding-right: 55px;
+        padding-top: 55px;
+        height: 390px;
+        &__content{
+            width: 485px;
+        }
+        &__desc{
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 767px){
+    .lookbook-card{
+        padding-top: 30px;
+        padding-right: 30px;
+        height: 340px;
+        &__content{
+            width: 355px;
+        }
+        &__title{
+            font-size: 38px;
+            padding-bottom: 15px;
+        }
+        &__desc{
+            font-size: 14px;
+        }
+    }
+}
+
+@media (max-width: 575px){
+    .lookbook-card{
+        padding-right: 10px;
+        padding-top: 15px;
+        &__content{
+            width: 100%;
+        }
+        &__desc{
+            width: 200px;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+    }
+}

@@ -1,0 +1,18 @@
+.qty-selector{
+    display: flex;
+    input[name=qty]{
+        width: 40px;
+        border: 1px solid #e7e7e7;
+    }
+    &__buttons{
+        border: 1px solid #e7e7e7;
+        border-left: none;
+        width: 35px;
+        button{
+            width: 100%;
+        }
+    }
+    &__up{
+        border-bottom: 1px solid #e7e7e7;;
+    }
+}

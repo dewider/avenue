@@ -1,0 +1,18 @@
+
+.search-field{
+    position: relative;
+    input{
+        border: 1px solid #989898;
+        padding: 10px;
+        background: transparent;
+        &::placeholder{
+            color: #989898;
+        }
+    }
+    button{
+        color: #989898;
+        position: absolute;
+        right: 8px;
+        top: 12px;
+    }
+}

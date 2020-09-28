@@ -1,0 +1,32 @@
+.submenu-banner{
+    background: $dark-gray-color;
+    color: #fff;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    height: 200px;
+    &__content{
+        @include montserrat-regular;
+        display: block;
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 1199px){
+    .submenu-banner{
+        height: 150px;
+        &__content{
+            font-size: 29px;
+        }
+    }
+}
+
+@media (max-width: 575px){
+    .submenu-banner{
+        &__content{
+            font-size: 23px;
+        }
+    }
+}

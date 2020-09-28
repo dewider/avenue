@@ -1,0 +1,95 @@
+/**
+ * Main style
+ */
+
+@import "_fonts.scss";
+@import "_variables.scss";
+
+// RESET
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+}
+img{
+    display: block;
+}
+a{
+    text-decoration: none;
+    display: inline-block;
+}
+button{
+    background: transparent;
+}
+button:hover{
+    cursor: pointer;
+}
+ul{
+    list-style: none;
+}
+body{
+    @include montserrat-regular;
+}
+
+// общие стили
+.bold{ font-weight: bold; }
+.placeholder-60px{ padding-top: 60px; }
+.placeholder-90px{ padding-top: 90px; }
+.placeholder-125px{ padding-top: 125px; }
+
+.transparrent-button{
+    padding: 15px 30px;
+    border: 2px solid #737373;
+    text-transform: uppercase;
+    @include montserrat-light;
+    letter-spacing: 1.5pt;
+    font-size: 15px;
+    background: transparent;
+}
+.transparrent-button:hover{
+    background: $turquoise-color;
+    border-color: $turquoise-color;
+    color: #fff;
+}
+.price{
+    sup{
+        font-size: 0.6em;
+    }
+}
+.old-price{
+    text-decoration: line-through;
+    margin-right: 15px;
+}
+
+@media (max-width: 1199px){
+    .transparrent-button{
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 767px){
+    .transparrent-button{
+        font-size: 12px;
+        padding: 10px 20px;
+    }
+}
+
+// IMPORT
+@import "_container.scss";
+@import "_stop-line.scss";
+@import "header/_header.scss";
+@import "_top-banner.scss";
+@import "catalog/_catalog.scss";
+@import "lookbook-cards/_lookbook-cards.scss";
+@import "footer/_footer.scss";
+@import "_top-banner-internal.scss";
+@import "_about.scss";
+@import "product/_product.scss";
+@import "login/_login.scss";

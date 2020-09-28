@@ -1,0 +1,37 @@
+.cart-button{
+    height: inherit;
+    @include montserrat-regular;
+    &__text{
+        width: 44px;
+        display: inline-block;
+        text-align: right;
+    }
+    button{
+        background-color: $turquoise-color;
+        color: #fff;
+        height: inherit;
+        padding: 0 23px;
+        i.fa-shopping-cart:before{
+            font-size: 14px;
+            padding-right: 25px;
+        }
+        i.fa-angle-down:before{
+            padding-left: 10px;
+        }
+    }
+}
+
+@media (max-width: 575px){
+    .cart-button{
+        button{
+            padding-left: 10px;
+            padding-right: 10px;
+            i.fa-shopping-cart:before{
+                padding-right: 5px;
+            }
+            i.fa-angle-down:before{
+                padding-left: 5px;
+            }
+        }
+    }
+}
