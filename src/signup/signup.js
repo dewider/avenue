@@ -60,10 +60,15 @@ function showErrors ( data ){
     var emailField = document.querySelector('.login__register form input[name=email]');
     var passField = document.querySelector('.login__register form input[name=pass]');
     var confirmField = document.querySelector('.login__register form input[name=confirm_pass]');
+    var messageField = document.querySelector('.login__register .login-form__error-message');
+    var message = '';
+
+    if ( data.message ) message = data.message+'\n';
     
     if ( data.email == false ){
 
         emailField.classList.add('error');
+        message = message + 'Некорректный Email\n';
     } else {
         emailField.classList.remove('error');
     }
@@ -71,6 +76,7 @@ function showErrors ( data ){
     if ( data.pass == false ){
 
         passField.classList.add('error');
+        message = message + 'Некорректный пароль\n';
     } else {
 
         passField.classList.remove('error');
@@ -79,11 +85,13 @@ function showErrors ( data ){
     if ( data.confirm == false ){
 
         confirmField.classList.add('error');
+        message = message + 'Подтверждение пароля не совпадает\n';
     } else {
 
         confirmField.classList.remove('error');
     } 
-    
+
+    messageField.innerText = message;
 
 }
 
@@ -144,11 +152,22 @@ function initRegisterForm(){
                 var resJSON = JSON.parse(e.target.responseText);
                 // показываем ошибки
                 showErrors(resJSON);
+
+                // если пользователь создан
+                if ( resJSON.isCorrect ){
+
+                    // авторизируемся
+                    var form = document.querySelector('.login__sign-in form');
+
+                    form.log.value = formFields.email;
+                    form.pwd.value = formFields.pass;
+                    form.submit();
+                    console.log(form);
+                }
             });
 
             // отправляем значения полкй формы
             request.send(JSON.stringify(formFields));
-
         }
         
     });

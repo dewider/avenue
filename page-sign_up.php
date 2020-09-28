@@ -57,6 +57,7 @@ get_header();
                             <span>By clicking ‘Create Account’, you agree to our <a href="#">Privacy Policy<i class="fas fa-long-arrow-alt-right"></i></a></span>
                         </div>
                     </div>
+                    <div class="login-form__error-message"></div>
                 </form>
             </div>
         </div>

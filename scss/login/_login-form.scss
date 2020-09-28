@@ -59,6 +59,11 @@
             justify-content: flex-end;
         }
     }
+    &__error-message{
+        padding-top: 10px;
+        color: #ff5555;
+        position: absolute;
+    }
 }
 
 @media (max-width: 991px){

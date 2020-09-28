@@ -88,12 +88,14 @@ function catalog_endpoint ( $args ){
 function new_user_endpoint ( $args ){
 
     $res = array(
-        "email" => false,
-        "pass" => false
+        "email"     => false,
+        "pass"      => false,
+        "message"   => ' '
     );
 
     // проверяем почту
     $email = sanitize_email( $args["email"] );
+    //$email = $args["email"];
     if ( $email ){
         if ( preg_match( '/\S+@\S+\.\S+/', $email ) ){
 
@@ -127,6 +129,7 @@ function new_user_endpoint ( $args ){
 
             $res["email"] = false;
             $res["isCorrect"] = false;
+            $res["message"] = "Такой Email уже зарегистрирован";
             return $res;
         }
         wp_set_password( $pass, $user_id);
