@@ -5,28 +5,10 @@
  */
 
 
-
- // отключаем стилии woocommerce
-add_filter( 'woocommerce_enqueue_styles', '__return_false' );
-
-/**
- * Добавление атрибутов для font awesome
- */
-/*
-add_filter('style_loader_tag', 'font_awesome_add_attr', 10, 2);
-function font_awesome_add_attr($html, $handle){
-
-	if ('font-awesome-5' === $handle){
-
-		str_replace('media="all"', 'media="all" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous"', $html);
-	}
-	return $html;
-}
-*/
-
 /**
  * Добавление разметки для верхних элементов меню с дочерними элементами
  */
+
 add_filter('wp_nav_menu_items', 'add_submenu_markup', 10 , 2);
 function add_submenu_markup($items, $args){
 
@@ -74,6 +56,7 @@ function add_submenu_markup($items, $args){
 	}
 	return $items;
 }
+
 
 /**
  * Ограничеваем количество товаров на странице каталога

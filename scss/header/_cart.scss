@@ -9,6 +9,7 @@
 
 .cart{
     display: none;
+    flex-direction: column;
     &__item{
         display: flex;
         margin-bottom: 8px;
@@ -25,4 +26,9 @@
 .cart-button:hover ~ .cart,
 .cart:hover{
     display: flex;
+}
+
+.checkout-button__outer{
+    padding-top: 12px;
+    text-align: right;
 }

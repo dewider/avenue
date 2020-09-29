@@ -92,6 +92,11 @@ function avenue_scripts() {
 
 	wp_enqueue_script('main', get_template_directory_uri() . '/js/avenue.js');
 
+	// отключаем стилии woocommerce (кроме страницы заказа)
+	if ( !is_checkout() ){
+		add_filter( 'woocommerce_enqueue_styles', '__return_false' );
+	}
+
 }
 add_action( 'wp_enqueue_scripts', 'avenue_scripts' );
 

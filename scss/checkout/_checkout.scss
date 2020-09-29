@@ -1,0 +1,8 @@
+.woocommerce form[name=checkout]{
+
+    input.input-text,
+    textarea{
+        border: 1px solid #888888;
+        padding: 5px;
+    }
+}
