@@ -3,7 +3,13 @@
  * Кастомизация темы
  * 
  */
-
+// отключаем стилии woocommerce (кроме страницы заказа)
+//add_filter( 'woocommerce_enqueue_styles', '__return_false' );
+add_filter( 'woocommerce_enqueue_styles', 'wc_styles_setup' );
+function wc_styles_setup( $style ){
+    if ( !is_checkout() ) return false;
+    else return $style;
+}
 
 /**
  * Добавление разметки для верхних элементов меню с дочерними элементами

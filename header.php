@@ -80,10 +80,7 @@
                             ]);
 
                         ?>
-                            <div class="search-field">
-                                <input type="text" placeholder="Search...">
-                                <button><i class="fas fa-search"></i></button>
-                            </div>
+                            <?php get_product_search_form(); ?>
                             <button class="close-menu-button"><i class="fas fa-times"></i></button>
                         </div>
                     </div><!-- END header-menu__wrap -->
@@ -92,10 +89,7 @@
                         <button class="show-menu-button">
                             <span>MENU <i class="fas fa-angle-down"></i></span>
                         </button>
-                        <div class="search-field">
-                            <input type="text" placeholder="Search...">
-                            <button><i class="fas fa-search"></i></button>
-                        </div>
+                        <?php get_product_search_form(); ?>
                     </div>
                 </div>
             </div>
