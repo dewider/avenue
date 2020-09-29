@@ -83,6 +83,9 @@ function render(data){
     // получаем элемент корзины
     var cartElement = document.querySelector('.cart ul');
 
+    // получаем элемент кнопки заказа
+    var checkoutButtonOuter = document.querySelector('.checkout-button__outer');
+
     // создание внутренних элементов корзины
     var createItem = function( el, cname, text){
 
@@ -97,6 +100,7 @@ function render(data){
 
         cartElement.innerHTML = 'empty';
         cartButtonText.innerHTML = 'empty';
+        checkoutButtonOuter.innerHTML = '';
         return;
     };
     // очищаем список дочерних элементов
@@ -129,6 +133,9 @@ function render(data){
             delRequest.send(JSON.stringify({"cart_item_key": key}));
         });
     };
+
+    // добавляем кнопку заказа
+    checkoutButtonOuter.innerHTML = '<a class="checkout-button transparrent-button" href="/checkout">Checkout</a>';
 }
 
  module.exports = {

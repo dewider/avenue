@@ -55,7 +55,6 @@
                             <ul>
                             </ul>
                             <div class="checkout-button__outer">
-                                <a class="checkout-button transparrent-button" href="<?php echo wc_get_checkout_url(); ?>">Checkout</a>
                             </div>
                         </div>
                     </div>
