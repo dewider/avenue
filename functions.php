@@ -90,6 +90,10 @@ function avenue_scripts() {
 	wp_enqueue_style( 'avenue-style', get_stylesheet_uri(), array(), _S_VERSION );
 	//wp_style_add_data( 'avenue-style', 'rtl', 'replace' );
 
+	// jQuery.cookie для WOOCS
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('jquery-cookie', '//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js');
+	
 	wp_enqueue_script('main', get_template_directory_uri() . '/js/avenue.js');
 
 }

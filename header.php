@@ -22,14 +22,29 @@
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+<?php global $WOOCS ?>
 
     <div class="main-wrapper">
     <header class="header">
             <div class="header__top stop-line">
                 <div class="container header__top-container">
                     <div class="stop-line__left-part">
-                        <div class="header__top-currency">
-                            <span>Currency : </span><button>GBP <i class="fas fa-angle-down"></i></button>
+                        <div class="header__top-currency currency-selector">
+                            <span>Currency : </span><button><?php echo $WOOCS->current_currency; ?> <i class="fas fa-angle-down"></i></button>
+                            <ul class="currency-selector__list">
+                            <?php
+                                // получаем список доступных валют
+                                $currency_list = $WOOCS->get_currencies();
+
+                                foreach ($currency_list as $key => $value):
+                            ?>
+                                <li>
+                                    <a href="?currency=<?php echo $key ?>"><?php echo $key ?></a>
+                                </li>
+                            <?php
+                                endforeach;
+                            ?>
+                            </ul>
                         </div>
                     </div>
                     <div class="stop-line__right-part">

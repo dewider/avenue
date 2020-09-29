@@ -58,6 +58,9 @@ function catalog_endpoint ( $args ){
         ));
     }
 
+    // Получаем значек текущей валюты
+    $currencySymbol = get_currency_symbol();
+
     // запрос к БД
     $posts = new WP_Query($query_args);
 
@@ -67,14 +70,15 @@ function catalog_endpoint ( $args ){
         global $product; 
 
         array_push($res, array(
-            'ID'            => $product->get_ID(),
-            'title'         => $product->get_title(),
-            'price'         => $product->get_price(),
-            'regularPrice'  => $product->get_regular_price(),
-            'thumb'         => wp_get_attachment_image_url($product->get_image_id(), 'full'),
-            'desc'          => $product->get_description(),
-            'url'           => get_permalink($product->get_ID()),
-            'gallery'       => wp_get_attachment_url ( $product->get_gallery_image_ids()[0] )
+            'ID'                => $product->get_ID(),
+            'title'             => $product->get_title(),
+            'price'             => $product->get_price(),
+            'regularPrice'      => $product->get_regular_price(),
+            'thumb'             => wp_get_attachment_image_url($product->get_image_id(), 'full'),
+            'desc'              => $product->get_description(),
+            'url'               => get_permalink($product->get_ID()),
+            'gallery'           => wp_get_attachment_url ( $product->get_gallery_image_ids()[0] ),
+            'currencySymbol'    => $currencySymbol
         ));
     }
     wp_reset_postdata();

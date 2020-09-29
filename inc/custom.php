@@ -63,7 +63,6 @@ function add_submenu_markup($items, $args){
 	return $items;
 }
 
-
 /**
  * Ограничеваем количество товаров на странице каталога
  */
@@ -74,3 +73,13 @@ add_filter('loop_shop_per_page', function( $items ){
     return $max_items;
 
 }, 20);
+
+/**
+ * Получение символа текущей валюты
+ */
+function get_currency_symbol(){
+
+    global $WOOCS;
+    $currencyList = $WOOCS->get_currencies();
+    return $currencyList[$WOOCS->current_currency]['symbol'];
+}

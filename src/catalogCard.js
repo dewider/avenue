@@ -10,7 +10,7 @@
         card.classList.add('catalog-cards__item');
         card.classList.add('catalog-card');
 
-        var price = '<span class="price"><sup>£</sup>' + product.price + '</span>';
+        var price = '<span class="price"><sup>' + product.currencySymbol + '</sup>' + product.price + '</span>';
         // если действует акция
         if ( product.price != product.regularPrice ){
 
@@ -37,7 +37,7 @@
 	    	</a>
 	    	<div class="catalog-card__desc">
                 <h2>
-                    ${product.title} <span class="price"><sup>£</sup>${product.price}</span>
+                    ${product.title} <span class="price"><sup>${product.currencySymbol}</sup>${product.price}</span>
                 </h2>
                     ${product.desc}
                 <div class="catalog-card__buttons">

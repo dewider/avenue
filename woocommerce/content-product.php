@@ -34,6 +34,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	$p_ID = $product->get_ID();
 	$p_url = get_permalink($p_ID);
 	$p_gallery = wp_get_attachment_url ( $product->get_gallery_image_ids()[0] );
+	$p_currency_symbol = get_currency_symbol();
 ?>
 
 <li class="catalog-cards__item catalog-card">
@@ -44,9 +45,9 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 			<div class="catalog-card__preview" style="background-image: url(<?php echo $p_thumb; ?>;">
 				<div class="catalog-card__price">
 				<?php if ( $p_price < $p_regular_price ): ?>
-					<span class="price old-price"><sup>£</sup><?php echo $p_regular_price; ?></span>
+					<span class="price old-price"><sup><?php echo $p_currency_symbol; ?></sup><?php echo $p_regular_price; ?></span>
 				<?php endif; ?>
-	            	<span class="price"><sup>£</sup><?php echo $p_price; ?></span>
+	            	<span class="price"><sup><?php echo $p_currency_symbol; ?></sup><?php echo $p_price; ?></span>
 				</div>
 				<div class="catalog-card__thumbs">
 					<ul>
@@ -61,7 +62,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 		</a>
 		<div class="catalog-card__desc">
             <h2>
-                <?php echo $p_title; ?> <span class="price"><sup>£</sup><?php echo $p_price ?></span>
+                <?php echo $p_title; ?> <span class="price"><sup><?php echo $p_currency_symbol; ?></sup><?php echo $p_price ?></span>
             </h2>
             <?php echo $p_desc; ?>
             <div class="catalog-card__buttons">

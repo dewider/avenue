@@ -36,6 +36,7 @@ get_header( 'shop' ); ?>
 		$p_ID = $product->get_ID();
 		//$p_url = get_permalink($p_ID);
 		$p_gallery = wp_get_attachment_url ( $product->get_gallery_image_ids()[0] );
+		$p_currency_symbol = get_currency_symbol();
 	?>
 
 
@@ -97,9 +98,9 @@ get_header( 'shop' ); ?>
 	                </div>
 	                <div class="product__price">
 						<?php if ( $p_price < $p_regular_price ): ?>
-						<span class="price old-price"><sup>£</sup><?php echo $p_regular_price; ?></span>
+						<span class="price old-price"><sup><?php echo $p_currency_symbol; ?></sup><?php echo $p_regular_price; ?></span>
 						<?php endif; ?>
-	                    <span class="price"><sup>£</sup><?php echo $p_price; ?></span>
+	                    <span class="price"><sup><?php echo $p_currency_symbol; ?></sup><?php echo $p_price; ?></span>
 	                </div>
 	                <div class="product__details">
 	                    <ul>
