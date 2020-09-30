@@ -7,6 +7,7 @@ var cart = require("./cart.js");
 var catalog = require("./catalog.js");
 var product = require("./product/product.js");
 var signup = require("./signup/signup.js");
+var localStores = require("./localStores/localStores.js");
 
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -24,4 +25,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     // Инициализация форм авторизации
     signup.init();
+
+    // инициализация страницы Local stores
+    localStores.init();
 });

@@ -141,6 +141,38 @@ function new_user_endpoint ( $args ){
     return $res;
 }
 
+/**
+ * получение информации о магащине
+ */
+function stores_endpoint ( $args ){
+
+    $res = [];
+    // преобразуем id в число
+    $s_ID = intval( $args['id'] );
+    // получаем пост
+    $store = get_post( $s_ID );
+    // если тип поста не соответсвует - выходим
+    if ( $store->post_type != 'local-stores' ){
+        return array(
+            'error' => true
+        );
+    }
+    // получаем метаполя поста
+    $store_meta = get_post_meta( $s_ID);
+    // получаем информация из поста
+    $res = array_merge( $res, array(
+        'title'     => $store->post_title,
+        'address'   => $store_meta['store_address'][0],
+        'desc'      => $store_meta['store_description'][0],
+        'phone'     => $store_meta['store_phone'][0],
+        'url'        => $store_meta['store_url'][0],
+        'email'     => $store_meta['store_email'][0],
+        'shedule'   => $store_meta['store_shedule'][0],
+    ));
+
+    return $res;
+}
+
 // Регистрация машрутов API
 add_action('rest_api_init', function(){
 
@@ -166,6 +198,15 @@ add_action('rest_api_init', function(){
         array(
             'methods'   => 'POST',
             'callback'  => 'new_user_endpoint'
+        )
+    );
+
+    // маршрут для запроса информации по магазину
+    register_rest_route(
+        'stores/v1', '/get/(?P<id>\d+)',
+        array(
+            'methods'   => 'GET',
+            'callback'  => 'stores_endpoint'
         )
     );
 });
