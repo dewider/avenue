@@ -78,14 +78,7 @@
             margin: 0 7px;
             a,
             button{
-                width: 30px;
-                height: 30px;
-                background: #727272;
-                color: #fff;
-                border-radius: 15px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                @include circle-button;
             }
             a:hover,
             button:hover{

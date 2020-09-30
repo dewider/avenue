@@ -83,3 +83,29 @@ function get_currency_symbol(){
     $currencyList = $WOOCS->get_currencies();
     return $currencyList[$WOOCS->current_currency]['symbol'];
 }
+
+
+/**
+ * Регистрация типов постов
+ */
+add_action( 'init', 'register_post_types');
+function register_post_types(){
+    register_post_type( 'local-stores', array(
+        'labels'        => array(
+            'name'                  => 'Local Stores',
+            'singular_name'         => 'Local Store',
+            'add_new'               => 'Add Store',
+            'add_new_item'          => 'Add Store',
+            'edit_item'             => 'Edit Store',
+            'new_item'              => 'New Store',
+            'view_item'             => 'View Store',
+            'search_item'           => 'Search Store',
+            'not_found'             => 'Not Found',
+            'not_found_in_trash'    => 'Not fonud in trash',
+            'menu_name'             => 'Local Stores'
+        ),
+        'public'    => true,
+        'menu_icon' => 'dashicons-location-alt',
+        'supports'  => array('title')
+    ));
+}

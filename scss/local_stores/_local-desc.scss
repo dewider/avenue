@@ -1,0 +1,41 @@
+.local-desc{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 125px;
+    &__map{
+        width: 68%;
+        height: inherit;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    &__details{
+        padding: 43px 43px 90px 43px;
+        background: #f8f8f8;
+        width: 32%;
+        @include column-markup;
+        p{
+            margin-bottom: 30px;
+        }
+    }
+    &__contacts{
+        font-size: 14px;
+        margin: 0 0 60px 0;
+        &-item{
+            margin: 0 0 20px 0;
+            padding: 0 0 0 25px;
+            position: relative;
+            i{
+                position: absolute;
+                left: 0;
+            }
+        }
+    }
+    &__socials{
+        display: flex;
+        &-item{
+            margin-right: 12px;
+            @include circle-button;
+        }
+    }
+}

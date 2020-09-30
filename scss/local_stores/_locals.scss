@@ -1,0 +1,14 @@
+@import "./local-desc.scss";
+
+.locals{
+    padding: 65px 0 60px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+    &__item{
+        @include column-markup;
+        p{
+            min-height: 110px;
+        }
+    }
+}

@@ -68,7 +68,7 @@ get_header( 'shop' ); ?>
 	            </div>
 	            <div class="product__text">
 	                <div class="product__title">
-	                    <h1><?php echo $p_title; ?></h1>
+	                    <h2><?php echo $p_title; ?></h2>
 	                </div>
 	                <div class="product__feedback">
 	                    <div class="product__stars">

@@ -99,7 +99,6 @@ function new_user_endpoint ( $args ){
 
     // проверяем почту
     $email = sanitize_email( $args["email"] );
-    //$email = $args["email"];
     if ( $email ){
         if ( preg_match( '/\S+@\S+\.\S+/', $email ) ){
 
