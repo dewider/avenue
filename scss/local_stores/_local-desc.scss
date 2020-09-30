@@ -10,7 +10,7 @@
         background-repeat: no-repeat;
     }
     &__details{
-        padding: 43px 43px 90px 43px;
+        padding: 13px 43px 90px 43px;
         background: #f8f8f8;
         width: 32%;
         @include column-markup;
@@ -36,6 +36,39 @@
         &-item{
             margin-right: 12px;
             @include circle-button;
+        }
+    }
+}
+
+@media (max-width: 1199px){
+    .local-desc{
+        &__details{
+            padding-bottom: 40px;
+            padding-top: 0;
+        }
+    }
+}
+
+@media (max-width: 991px){
+    .local-desc{
+        flex-flow: column-reverse;
+        margin-bottom: 35px;
+        &__map{
+            width: 100%;
+            height: 300px;
+        }
+        &__details{
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            @include column-markup-991;
+        }
+        &__contacts{
+            font-size: 12px;
+            margin-bottom: 35px;
+            &-item{
+                margin-bottom: 13px;
+            }
         }
     }
 }

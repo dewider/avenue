@@ -1,7 +1,7 @@
 @import "./local-desc.scss";
 
 .locals{
-    padding: 65px 0 60px 0;
+    padding: 36px 0 60px 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 30px;
@@ -9,6 +9,35 @@
         @include column-markup;
         p{
             min-height: 110px;
+        }
+    }
+}
+
+@media (max-width: 1199px){
+    .locals{
+        padding: 10px 15px 40px 15px;
+    }
+}
+
+@media (max-width: 991px){
+    .locals{
+        &__item{
+            @include column-markup-991;
+            p{
+                min-height: 175px;
+                margin-bottom: 12px;
+            }
+        }
+    }
+}
+
+@media (max-width: 767px){
+    .locals{
+        grid-template-columns: 1fr;
+        &__item{
+            p{
+                min-height: initial;
+            }
         }
     }
 }
