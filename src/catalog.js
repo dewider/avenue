@@ -5,15 +5,16 @@
  */
 var cart = require("./cart.js");
 var catalogCard = require("./catalogCard.js");
+var lookbookCard = require("./lookbookCard.js");
 
 
 /**
- * Запрос товаров из каталога
+ * Запрос из каталога
  */
-function createGetRequest(category, callback){
+function createGetRequest( url, callback){
 
     var request = new XMLHttpRequest();
-    request.open('GET', '/wp-json/catalog/v1/get/'+category);
+    request.open('GET', url);
     request.setRequestHeader('Content-Type', 'application/json');
     request.addEventListener("readystatechange", callback);
     return request;
@@ -62,7 +63,12 @@ function addCardListeners(){
 /**
  * Добавление обработчиков кнопок категорий
  */
-function addCategoriesListeners(){
+function addCategoriesListeners( args ){
+
+    // определяем конфигурации функции
+    var conf = Object.assign( {
+        lookbook: false
+    }, args  );
 
      // кнопка категорий в мобильной версии
      var categoriesBtn = document.querySelector('.catalog-categories__show-button');
@@ -84,20 +90,38 @@ function addCategoriesListeners(){
         item.addEventListener('click', function(event){
             event.preventDefault();
 
-            getProductsCategory(event.target.dataset.category);
+            var category = event.target.dataset.category;
+            getCategoryItems({
+                category: category,
+                lookbook: conf.lookbook
+            });
         });
      });
 }
 
 /**
- * Получение товаров по категории
+ * Получение товаров/лукбуков категории
  */
-function getProductsCategory( category ){
+function getCategoryItems( args ){
+
+    // определяем конфигурации функции
+    var conf = Object.assign( {
+        lookbook: false,
+        category: 'all'
+    }, args  );
 
     // получаем элемент каталога
     var catalogCards = document.querySelector('.catalog-cards');
 
-    var catalogRequest = createGetRequest( category, function( event ){
+    // определяем url для запроса
+    if ( conf.lookbook ){
+        var reqUrl = '/wp-json/lookbook/v1/get/' + conf.category;
+    } else {
+        var reqUrl = '/wp-json/catalog/v1/get/' + conf.category;
+    }
+
+    // создаем запрос
+    var catalogRequest = createGetRequest( reqUrl, function( event ){
 
         // если запрос выполнен не полностью - выходим
         if( event.target.readyState != 4) return;
@@ -109,10 +133,20 @@ function getProductsCategory( category ){
         // очищае текущий элемент каталога
         catalogCards.innerHTML = '';
 
-        // выводим товары
-        for( [index, product] of Object.entries( resJSON )){
+        // если каталог лукбуков - добавляем карточки лукбуков
+        if( conf.lookbook ){
+            for( [index, item] of Object.entries( resJSON )){
 
-            catalogCards.appendChild( catalogCard.create( product ) );
+                catalogCards.appendChild( lookbookCard.create( item ) );
+            }
+
+        } else {
+
+            // иначе выводим товары
+            for( [index, product] of Object.entries( resJSON )){
+                
+                catalogCards.appendChild( catalogCard.create( product ) );
+            }
         }
 
         // добавляем обработчики событий
@@ -131,11 +165,17 @@ module.exports ={
 
         var fpCatalog = document.querySelector('.fp-catalog');
         var catalog = document.querySelector('.catalog');
+        var lbCatalog = document.querySelector('.lb-catalog');
         
         if ( fpCatalog ) {
             // если главная страница - подгружаем каталог динамически
             addCategoriesListeners();
-            getProductsCategory('all');
+            getCategoryItems();
+
+        } else if ( lbCatalog ){
+             // если каталог лукбуков
+             addCategoriesListeners( {lookbook: true} );
+             getCategoryItems( {lookbook: true} );
             
         } else if ( catalog ){
             // если страница каталога - просто добавляем обработчики событий

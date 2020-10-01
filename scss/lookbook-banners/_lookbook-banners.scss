@@ -1,6 +1,6 @@
-@import "_lookbook-card.scss";
+@import "_lookbook-banner.scss";
 
-.lookbook-cards{
+.lookbook-banners{
     display: flex;
     padding: 65px 0 125px 0;
     &__left-col{
@@ -22,7 +22,7 @@
 }
 
 @media (max-width: 1510px){
-    .lookbook-cards{
+    .lookbook-banners{
         flex-direction: column;
         width: 900px;
         margin: 0 auto;
@@ -36,14 +36,14 @@
 }
 
 @media (max-width: 1199px){
-    .lookbook-cards{
+    .lookbook-banners{
         padding-top: 40px;
         padding-bottom: 80px;
     }
 }
 
 @media (max-width: 991px){
-    .lookbook-cards{
+    .lookbook-banners{
         width: 100%;
         padding-bottom: 40px;
     }

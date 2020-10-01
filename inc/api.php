@@ -142,7 +142,7 @@ function new_user_endpoint ( $args ){
 }
 
 /**
- * получение информации о магащине
+ * выдача информации о магазине
  */
 function stores_endpoint ( $args ){
 
@@ -159,8 +159,12 @@ function stores_endpoint ( $args ){
     }
     // получаем метаполя поста
     $store_meta = get_post_meta( $s_ID);
+    // получаем картинку карты
+    $store_map_id = $store_meta['store_map'][0];
+    $store_map = wp_get_attachment_image_src( $store_map_id, 'full' )[0]; 
     // получаем информация из поста
     $res = array_merge( $res, array(
+        'map'       => $store_map,
         'title'     => $store->post_title,
         'address'   => $store_meta['store_address'][0],
         'desc'      => $store_meta['store_description'][0],
@@ -169,6 +173,67 @@ function stores_endpoint ( $args ){
         'email'     => $store_meta['store_email'][0],
         'shedule'   => $store_meta['store_shedule'][0],
     ));
+
+    return $res;
+}
+
+/**
+ * выдача лукбуков
+ */
+function lookbook_endpoint( $args ){
+    $res = [];
+
+    // параметры для запроса к БД
+    $lb_params = array(
+        'post_type'     => 'lookbook',
+    );
+
+    // добавляем категорию в запрос    
+    switch( $args['category'] ){
+        case "latest":
+            $lb_params = array_merge( $lb_params, array(
+                'category_name' => 'latest'
+            ) );
+        break;
+        case "liked":
+            $lb_params = array_merge( $lb_params, array(
+                'category_name' => 'liked'
+            ) );
+        break;
+        case "best":
+            $lb_params = array_merge( $lb_params, array(
+                'category_name' => 'best'
+            ) );
+        break;
+        case "low":
+            $lb_params = array_merge( $lb_params, array(
+                'meta_key'  => 'lookbook_price',
+                'orderby'   => 'meta_value',
+                'order'     => 'ASC'
+            ) );
+        break;
+        case "high":
+            $lb_params = array_merge( $lb_params, array(
+                'meta_key'  => 'lookbook_price',
+                'orderby'   => 'meta_value',
+                'order'     => 'DESC'
+            ) );
+        break;
+
+    }
+
+    // получаем список лукбуков
+    $lb_loop = new WP_Query( $lb_params );
+    while( $lb_loop->have_posts() ){
+        $lb_loop->the_post();
+
+        array_push($res, array(
+            'ID'    => get_the_ID(),
+            'title' => get_the_title(),
+            'thumb' => get_the_post_thumbnail_url(),
+            'price' => get_field('lookbook_price')
+        ));
+    }
 
     return $res;
 }
@@ -207,6 +272,15 @@ add_action('rest_api_init', function(){
         array(
             'methods'   => 'GET',
             'callback'  => 'stores_endpoint'
+        )
+    );
+
+    // маршрут для получения лукбуков
+    register_rest_route(
+        'lookbook/v1', '/get/(?P<category>.+)',
+        array(
+            'methods'   => 'GET',
+            'callback'  => 'lookbook_endpoint'
         )
     );
 });

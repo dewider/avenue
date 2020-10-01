@@ -4,7 +4,6 @@
  * 
  */
 // отключаем стилии woocommerce (кроме страницы заказа)
-//add_filter( 'woocommerce_enqueue_styles', '__return_false' );
 add_filter( 'woocommerce_enqueue_styles', 'wc_styles_setup' );
 function wc_styles_setup( $style ){
     if ( !is_checkout() ) return false;
@@ -14,7 +13,6 @@ function wc_styles_setup( $style ){
 /**
  * Добавление разметки для верхних элементов меню с дочерними элементами
  */
-
 add_filter('wp_nav_menu_items', 'add_submenu_markup', 10 , 2);
 function add_submenu_markup($items, $args){
 
@@ -107,5 +105,24 @@ function register_post_types(){
         'public'    => true,
         'menu_icon' => 'dashicons-location-alt',
         'supports'  => array('title')
+    ));
+    register_post_type( 'lookbook', array(
+        'labels'        => array(
+            'name'                  => 'Lookbook',
+            'singular_name'         => 'Lookbook',
+            'add_new'               => 'Add Lookbook',
+            'add_new_item'          => 'Add Lookbook',
+            'edit_item'             => 'Edit Lookbook',
+            'new_item'              => 'New Lookbook',
+            'view_item'             => 'View Lookbook',
+            'search_item'           => 'Search Lookbook',
+            'not_found'             => 'Not Found',
+            'not_found_in_trash'    => 'Not fonud in trash',
+            'menu_name'             => 'Lookbook'
+        ),
+        'public'        => true,
+        'menu_icon'     => 'dashicons-format-gallery',
+        'supports'      => array('title', 'thumbnail'),
+        'taxonomies'    => array( 'category' )
     ));
 }

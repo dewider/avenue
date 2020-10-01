@@ -1,4 +1,4 @@
-.lookbook-card{
+.lookbook-banner{
     width: 620px;
     height: 530px;
     background: #f8f8f8;
@@ -29,7 +29,7 @@
 }
 
 @media (max-width: 1880px){
-    .lookbook-card{
+    .lookbook-banner{
         width: 500px;
         height: 470px;
         padding-right: 15px;
@@ -41,7 +41,7 @@
 }
 
 @media (max-width: 1510px){
-    .lookbook-card{
+    .lookbook-banner{
         width: 100%;
         background-size: contain;
         padding-right: 55px;
@@ -57,7 +57,7 @@
 }
 
 @media (max-width: 767px){
-    .lookbook-card{
+    .lookbook-banner{
         padding-top: 30px;
         padding-right: 30px;
         height: 340px;
@@ -75,7 +75,7 @@
 }
 
 @media (max-width: 575px){
-    .lookbook-card{
+    .lookbook-banner{
         padding-right: 10px;
         padding-top: 15px;
         &__content{

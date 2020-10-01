@@ -7,7 +7,6 @@ function createGetRequest( id ){
     request.open('GET', '/wp-json/stores/v1/get/' + id);
     request.setRequestHeader('Content-Type', 'application/json');
     request.addEventListener("readystatechange", function( e ){
-        console.log(e);
         // если запрос выполнен не полностью - выходим
         if( e.target.readyState != 4) return;
         // если пустой ответ - выходим
@@ -27,6 +26,7 @@ function render( data ){
 
     if ( !data ) return;
 
+    var mapElement = document.querySelector('.local-desc__map');
     var titleElement = document.querySelector('.local-desc__title');
     var addressElement = document.querySelector('.local-desc__address');
     var descElement = document.querySelector('.local-desc__desc');
@@ -36,6 +36,7 @@ function render( data ){
     var emailElement = document.querySelector('.local-desc__email');
     var sheduleElement = document.querySelector('.local-desc__shedule');
 
+    mapElement.style.backgroundImage = 'url(' + data.map + ')';
     titleElement.innerHTML = data.title;
     addressElement.innerHTML = data.address;
     descElement.innerHTML = data.desc;
