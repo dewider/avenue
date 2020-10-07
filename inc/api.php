@@ -227,12 +227,30 @@ function lookbook_endpoint( $args ){
     while( $lb_loop->have_posts() ){
         $lb_loop->the_post();
 
-        array_push($res, array(
-            'ID'    => get_the_ID(),
-            'title' => get_the_title(),
-            'thumb' => get_the_post_thumbnail_url(),
-            'price' => get_field('lookbook_price')
-        ));
+        $lb_is_banner = get_field('lookbook_is_banner');
+        // если баннер
+        if( $lb_is_banner ){
+
+            array_push($res, array(
+                'isBanner'      => true,
+                'ID'            => get_the_ID(),
+                'title'         => get_the_title(),
+                'thumb'         => get_the_post_thumbnail_url(),
+                'price'         => get_field('lookbook_price'),
+                'content'       => get_field('lookbook_banner_content'),
+                'width'         => get_field('lookbook_banner_width'),
+                'buttonText'    => get_field('lookbook_button_text')
+            ));
+        } else {
+
+            array_push($res, array(
+                'isBanner'  => false,
+                'ID'        => get_the_ID(),
+                'title'     => get_the_title(),
+                'thumb'     => get_the_post_thumbnail_url(),
+                'price'     => get_field('lookbook_price'),
+            ));
+        }
     }
 
     return $res;
