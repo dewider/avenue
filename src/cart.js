@@ -4,26 +4,49 @@
  * 
  */
 
+/**
+ * Создает AJAX запрос
+ */
+function createRequest( method, url, callback ){
+
+    var request = new XMLHttpRequest();
+    request.open( method, url );
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.addEventListener( "readystatechange", callback );
+    return request;
+}
+
+/**
+ * Создает AJAX запрос с авторизаций
+ */
+function createAuthRequest( method, url, callback ){
+
+    var request = new XMLHttpRequest();
+    request.open( method, url );
+    request.setRequestHeader('X-WP-Nonce', REST_API_data.nonce);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.addEventListener( "readystatechange", callback );
+    return request;
+}
 
 /**
  * создаем запрос для получения содержания корзины 
 */
 function createGetRequest(){
 
-    var request = new XMLHttpRequest();
-    request.open( 'GET', '/wp-json/cocart/v1/get-cart' );
-    request.setRequestHeader('Content-Type', 'application/json');
+    var request = createAuthRequest(
+        'GET',
+        '/wp-json/cocart/v1/get-cart',
+        function( event ){
 
-    request.addEventListener("readystatechange", function(event){
-
-        // если запрос выполнен не полностью - выходим
-        if( event.target.readyState != 4) return;
-        // если пустой ответ - выходим
-        if( event.target.responseText == "" ) return;
-        // парсим результат запроса
-        var resJSON = JSON.parse(event.target.responseText);
-        // рисуем полученные элементы
-        render(resJSON);
+            // если запрос выполнен не полностью - выходим
+            if( event.target.readyState != 4) return;
+            // если пустой ответ - выходим
+            if( event.target.responseText == "" ) return;
+            // парсим результат запроса
+            var resJSON = JSON.parse(event.target.responseText);
+            // рисуем полученные элементы
+            render(resJSON);
 
     });
 
@@ -35,17 +58,16 @@ function createGetRequest(){
 */
 function createDelRequest(){
 
-    var request = new XMLHttpRequest();
-    request.open('DELETE', '/wp-json/cocart/v1/item');
-    request.setRequestHeader('Content-Type', 'application/json');
+    var request = createAuthRequest(
+        'DELETE',
+        '/wp-json/cocart/v1/item',
+        function(event){
 
-    request.addEventListener('readystatechange', function(event){
-
-        // если запрос выполнен не полностью - выходим
-        if( event.target.readyState != 4) return;
-        // получаем содержание корзины
-        var getRequest = createGetRequest();
-        getRequest.send();
+            // если запрос выполнен не полностью - выходим
+            if( event.target.readyState != 4) return;
+            // получаем содержание корзины
+            var getRequest = createGetRequest();
+            getRequest.send();
     });
 
     return request;
@@ -56,17 +78,16 @@ function createDelRequest(){
  */
 function createAddRequest(){
 
-    var request = new XMLHttpRequest();
-    request.open('POST', '/wp-json/cocart/v1/add-item');
-    request.setRequestHeader('Content-Type', 'application/json');
+    var request = createAuthRequest(
+        'POST', 
+        '/wp-json/cocart/v1/add-item',
+        function(event){
 
-    request.addEventListener('readystatechange', function(event){
-
-        // если запрос выполнен не полностью - выходим
-        if( event.target.readyState != 4) return;
-        // получаем содержание корзины
-        var getRequest = createGetRequest();
-        getRequest.send();
+            // если запрос выполнен не полностью - выходим
+            if( event.target.readyState != 4) return;
+            // получаем содержание корзины
+            var getRequest = createGetRequest();
+            getRequest.send();
     });
 
     return request;

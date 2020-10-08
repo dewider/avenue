@@ -96,6 +96,11 @@ function avenue_scripts() {
 	
 	wp_enqueue_script('main', get_template_directory_uri() . '/js/avenue.js');
 
+	// поддержка авторизации по AJAX
+	wp_localize_script( 'main', 'REST_API_data', array(
+		'root'  => esc_url_raw( rest_url() ),
+		'nonce' => wp_create_nonce( 'wp_rest' )
+	) );
 }
 add_action( 'wp_enqueue_scripts', 'avenue_scripts' );
 
