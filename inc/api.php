@@ -256,37 +256,6 @@ function lookbook_endpoint( $args ){
     return $res;
 }
 
-/**
- * получение id корзины
- */
-/*
-function cart_id_endpoint( $args ){
-
-    $res = [];
-
-    $user_id = get_current_user_id();
-    $cart_id = get_field( 'user_cart_id', "user_" . $user_id );
-    //$cart_id = get_field( 'user_cart_id', "user_0" );
-
-    $res = array_merge( $res, array(
-
-        'cartID'    => $cart_id,
-        'userID'    => $user_id,
-    ));
-
-    return $res;
-}
-*/
-
-/**
- * Авторизация и получение корзины
- */
-/*
-function get_cart_endpoint(){
-
-    WC_AJAX::update_api_key();
-}
-*/
 
 // Регистрация машрутов API
 add_action('rest_api_init', function(){
@@ -333,23 +302,4 @@ add_action('rest_api_init', function(){
             'callback'  => 'lookbook_endpoint'
         )
     );
-/*
-    // получение id корзины пользователя
-    register_rest_route(
-        'users/v1', '/cart-id',
-        array(
-            'methods'   => 'GET',
-            'callback'  => 'cart_id_endpoint'
-        )
-    );
-
-    // авторизация и получение корзины
-    register_rest_route(
-        'cart/v1', '/get',
-        array(
-            'methods'   => 'GET',
-            'callback'  => 'get_cart_endpoint'
-        )
-    );
-    */
 });

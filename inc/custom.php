@@ -82,7 +82,6 @@ function get_currency_symbol(){
     return $currencyList[$WOOCS->current_currency]['symbol'];
 }
 
-
 /**
  * Регистрация типов постов
  */
@@ -125,4 +124,16 @@ function register_post_types(){
         'supports'      => array('title', 'thumbnail'),
         'taxonomies'    => array( 'category' )
     ));
+}
+
+/**
+ * Установка cookie
+ */
+add_action( 'init', 'set_cookie' );
+function set_cookie(){
+
+    if( is_user_logged_in() )
+        setcookie('logged_in', 'yes' );
+    else
+        setcookie('logged_in', 'no' );
 }

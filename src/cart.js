@@ -1,8 +1,10 @@
 /**
- * 
- * Cart
- * 
+ * ===================
+ * === Cart ==========
+ * ===================
  */
+
+var cookie = require('cookie');
 
 /**
  * Создает AJAX запрос
@@ -21,11 +23,11 @@ function createRequest( method, url, callback ){
  */
 function createAuthRequest( method, url, callback ){
 
-    var request = new XMLHttpRequest();
-    request.open( method, url );
-    request.setRequestHeader('X-WP-Nonce', REST_API_data.nonce);
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.addEventListener( "readystatechange", callback );
+    var request = createRequest( method, url, callback );
+    // если пользователь залогинился - авторизируемся в запросе
+    if( cookie.parse( document.cookie ).logged_in === 'yes'){
+        request.setRequestHeader('X-WP-Nonce', REST_API_data.nonce);
+    }
     return request;
 }
 
@@ -38,7 +40,6 @@ function createGetRequest(){
         'GET',
         '/wp-json/cocart/v1/get-cart',
         function( event ){
-
             // если запрос выполнен не полностью - выходим
             if( event.target.readyState != 4) return;
             // если пустой ответ - выходим

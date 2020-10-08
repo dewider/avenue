@@ -50,6 +50,19 @@ function checkForm ( data ){
 }
 
 /**
+ * Получение cart key из cookie
+ */
+function getCartKey(){
+
+    var key = document.cookie.match(/wp_cocart_session_.*=.*%7C%7C/);
+    if( !key ) return undefined;
+    key = key[0].split('=')[1];
+    key = key.split('%7C%7C')[0];
+    return key;
+}
+
+
+/**
  * Отображение ошибок
  */
 function showErrors ( data ){
@@ -162,7 +175,6 @@ function initRegisterForm(){
                     form.log.value = formFields.email;
                     form.pwd.value = formFields.pass;
                     form.submit();
-                    console.log(form);
                 }
             });
 
@@ -177,6 +189,12 @@ module.exports = {
 
     init: function(){
 
+        // получаем cart key cocart для сохранения корзины
+        var cartKey = getCartKey();
+        console.log( document.cookie );
+        console.log( "-----------------------" );
+        console.log( cartKey );
+        
         initRegisterForm();
     }
 }
