@@ -35,6 +35,7 @@ get_header();
                             <a href="#">Forgot your Password<i class="fas fa-long-arrow-alt-right"></i></a>
                         </div>
                     </div>
+                    <div class="login-form__error-message"></div>
                 </form>
             </div>
         </div>

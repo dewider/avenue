@@ -202,7 +202,7 @@ function initRegisterForm(){
 }
 
 /**
- * Форма авторризации
+ * Форма авторизации
  */
 function initLoginForm(){
 
@@ -222,6 +222,16 @@ function initLoginForm(){
 
         // сохряняем cart key
         var cartKey = getCartKey();
+        // находим блок с сообщение об ошибке
+        var errorElement = form.querySelector('.login-form__error-message');
+        // очищаем
+        errorElement.innerHTML = '';
+        // проверяем заполены ли поля
+        if( !formFields.email || !formFields.pass ){
+            errorElement.innerText = 'Заполнены не все поля';
+            return;
+        }
+        // создаем запрос авторизации
         var loginRequest = ajax.createRequest(
             'POST',
             '/wp-json/users/v1/login',
@@ -231,12 +241,21 @@ function initLoginForm(){
                 // если пустой ответ - выходим
                 if( e.target.responseText == "" ) return;
 
-                if( cartKey ){
-                    // если в корзине есть товары, добавляем их из сессии
-                    document.location.href = '/?cocart-load-cart=' + cartKey + '&keep-cart=false';
+                var resJSON = JSON.parse(e.target.responseText);
+                
+                if( resJSON.status === 'success'){
+                    // если получилось авторизироваться
+                    if( cartKey ){
+                        // если в корзине есть товары, добавляем их из сессии
+                        document.location.href = '/?cocart-load-cart=' + cartKey + '&keep-cart=false';
+                    } else {
+                        //иначе - просто перенаправляем на главную страницу
+                        document.location.href = '/';
+                    }
                 } else {
-                    //иначе - просто перенаправляем на главную страницу
-                    document.location.href = '/';
+                    //иначе выводим сообщение об ошибке
+                    errorElement.innerText = 'Неправильное имя пользователя или пароль';
+
                 }
             }
 

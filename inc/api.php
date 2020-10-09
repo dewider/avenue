@@ -148,14 +148,15 @@ function user_login_endpoint ( $args ){
     
     $res = [];
 
+    // получаем логин/пароль пользователя
     $user = array(
         'user_login'       => $args['email'],
         'user_password'    => $args['pass'],
         'remember'         => false
     );
-
+    // пробуем залогиниться
     $user_login = wp_signon( $user );
-
+    // формируем ответ
     if( is_wp_error( $user_login ) ){
         $res['status'] = 'error';
     } else {
