@@ -131,6 +131,19 @@ function createAddRequest(){
 }
 
 /**
+ * Запрос для изменения количества
+ */
+function createUpdateRequest(callback){
+
+    var request = createAuthRequest(
+        'POST',
+        '/wp-json/cocart/v1/item',
+        callback
+    )
+    return request;
+}
+
+/**
  * Рендеринг корзины 
 */
 function render(data){
@@ -169,15 +182,22 @@ function render(data){
         
         // создаем элемент списка с дочерними элементами
         var cartItem = createItem('li', 'cart__item');
+        var cartItemQuantity = createItem('div', 'cart__item-quantity', item.quantity);
+        var cartItemPlus = createItem('button', 'cart__item-plus', '+');
+        var cartItemMinus = createItem('button', 'cart__item-minus', '-');
         var cartItemTitle = createItem('div', 'cart__item-title', item.product_title);
         var cartItemPrice = createItem('div', 'cart__item-price', item.line_total);
         var cartItemDelete = createItem('div', 'cart__item-delete', '<button><i class="far fa-times-circle"></i></button>');
         
-        // устанавливаем атрибут data с идентификатором товара
+        // устанавливаем атрибуты data
         cartItem.dataset.key = key;
+        cartItem.dataset.qty = item.quantity;
 
         // добавляем элементы в DOM
         cartItem.appendChild(cartItemTitle);
+        cartItem.appendChild(cartItemMinus);
+        cartItem.appendChild(cartItemQuantity);
+        cartItem.appendChild(cartItemPlus);
         cartItem.appendChild(cartItemPrice);
         cartItem.appendChild(cartItemDelete);
         cartElement.appendChild(cartItem);
@@ -189,6 +209,66 @@ function render(data){
             var key = e.target.closest('li').dataset.key;
             var delRequest = createDelRequest();
             delRequest.send(JSON.stringify({"cart_item_key": key}));
+        });
+    
+        // обработка кнопок + и -
+        cartItemPlus.addEventListener('click', function(e){
+
+            e.preventDefault();
+            // получаем значения полей
+            var item = e.target.closest('.cart__item');
+            var qty = parseInt(item.dataset.qty) + 1;
+            var key = item.dataset.key;
+
+            var request = createUpdateRequest( function(e){
+
+                // если запрос выполнен не полностью - выходим
+                if( e.target.readyState != 4) return;
+                // если пустой ответ - выходим
+                if( e.target.responseText == "" ) return;
+                // парсим результат запроса
+                var res = JSON.parse(e.target.responseText)[key];
+
+                item.dataset.qty = res.quantity;
+                item.querySelector('.cart__item-quantity').innerText = res.quantity;
+                item.querySelector('.cart__item-price').innerText = res.line_total;
+            });
+
+            request.send(JSON.stringify({
+                cart_item_key: key,
+                quantity: qty,
+                return_cart: true
+            }))
+        });
+        cartItemMinus.addEventListener('click', function(e){
+
+            e.preventDefault();
+            // получаем значения полей
+            var item = e.target.closest('.cart__item');
+            var qty = parseInt(item.dataset.qty);
+            if( qty <= 1 ) return;
+            qty--;
+            var key = item.dataset.key;
+
+            var request = createUpdateRequest( function(e){
+
+                // если запрос выполнен не полностью - выходим
+                if( e.target.readyState != 4) return;
+                // если пустой ответ - выходим
+                if( e.target.responseText == "" ) return;
+                // парсим результат запроса
+                var res = JSON.parse(e.target.responseText)[key];
+
+                item.dataset.qty = res.quantity;
+                item.querySelector('.cart__item-quantity').innerText = res.quantity;
+                item.querySelector('.cart__item-price').innerText = res.line_total;
+            });
+
+            request.send(JSON.stringify({
+                cart_item_key: key,
+                quantity: qty,
+                return_cart: true
+            }))
         });
     };
 

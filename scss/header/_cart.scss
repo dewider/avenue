@@ -13,6 +13,7 @@
     &__item{
         display: flex;
         margin-bottom: 8px;
+        align-items: center;
         &-title{
             margin-right: 5px;
             width: 250px;
@@ -20,6 +21,16 @@
         &-price{
             margin-right: 8px;
             width: 60px;
+        }
+        &-quantity{
+            padding: 0 7px;
+        }
+        &-plus{
+            margin-right: 8px;
+        }
+        &-plus,
+        &-minus{
+            font-size: 18px;
         }
     }
 }
