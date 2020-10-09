@@ -23,7 +23,7 @@ get_header();
     <div class="login">
         <div class="login__sign-in">
             <div class="login-form">
-                <form action="http://site3.ivit.pro/wp-login.php" method="post">
+                <form action="/wp-login.php" method="post">
                     <label for="">SIGN IN</label>
                     <input type="text" name="log" placeholder="Your Email..">
                     <input type="password" name="pwd" placeholder="Your password..">
@@ -40,7 +40,7 @@ get_header();
         </div>
         <div class="login__register">
             <div class="login-form">
-                <form action="http://site3.ivit.pro/wp-login.php" method="post">
+                <form action="/wp-login.php" method="post">
                     <label for="">REGISTER</label>
                     <input name="email" type="text" placeholder="Your Email..">
                     <input name="pass" type="text" placeholder="Your password..">

@@ -142,6 +142,30 @@ function new_user_endpoint ( $args ){
 }
 
 /**
+ * Авторизация пользователя
+ */
+function user_login_endpoint ( $args ){
+    
+    $res = [];
+
+    $user = array(
+        'user_login'       => $args['email'],
+        'user_password'    => $args['pass'],
+        'remember'         => false
+    );
+
+    $user_login = wp_signon( $user );
+
+    if( is_wp_error( $user_login ) ){
+        $res['status'] = 'error';
+    } else {
+        $res['status'] = 'success';
+    }
+
+    return $res;
+}
+
+/**
  * выдача информации о магазине
  */
 function stores_endpoint ( $args ){
@@ -300,6 +324,15 @@ add_action('rest_api_init', function(){
         array(
             'methods'   => 'GET',
             'callback'  => 'lookbook_endpoint'
+        )
+    );
+
+    // авторизация пользователя
+    register_rest_route(
+        'users/v1', '/login',
+        array(
+            'methods'   => 'POST',
+            'callback'  => 'user_login_endpoint'
         )
     );
 });

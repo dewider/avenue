@@ -48,6 +48,42 @@ function createGetRequest(){
             var resJSON = JSON.parse(event.target.responseText);
             // рисуем полученные элементы
             render(resJSON);
+        }
+    );
+
+    return request;
+}
+
+/**
+ * создаем запрос для обновления корзины 
+*/
+function createRefreshRequest(){
+
+    var request = createAuthRequest(
+        'GET',
+        '/wp-json/cocart/v1/get-cart',
+        function( event ){
+            // если запрос выполнен не полностью - выходим
+            if( event.target.readyState != 4) return;
+            // если пустой ответ - выходим
+            if( event.target.responseText == "" ) return;
+            // парсим результат запроса
+            var resJSON = JSON.parse(event.target.responseText);
+            // рисуем полученные элементы
+            render(resJSON);
+
+            for( [key, item] of Object.entries(resJSON) ){
+
+                var updateRequest = createAuthRequest(
+                    'POST',
+                    '/wp-json/cocart/v1/item',
+                    null
+                );
+                updateRequest.send(JSON.stringify({
+                    cart_item_key: key,
+                    quantity: item.quantity
+                }))
+            }
 
     });
 
@@ -167,8 +203,16 @@ function render(data){
      */
     init: function(){
 
-        // получаем корзину
-        var getRequest = createGetRequest();
+        // если перешли после авторизации
+        if( window.location.href.match('cocart-load-cart=') ){
+            
+            // обновляем содержимое корзины
+            var getRequest = createRefreshRequest();
+        } else {
+            
+            // иначе просто получаем содержимое корзины
+            var getRequest = createGetRequest();
+        }
         getRequest.send();
     },
 

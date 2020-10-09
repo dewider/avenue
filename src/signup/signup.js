@@ -2,6 +2,7 @@
  * Обраотка форм регистрации
  */
 
+ var ajax = require("../ajax.js");
 
 /**
  * Проверка введенных данных
@@ -60,7 +61,6 @@ function getCartKey(){
     key = key.split('%7C%7C')[0];
     return key;
 }
-
 
 /**
  * Отображение ошибок
@@ -169,32 +169,88 @@ function initRegisterForm(){
                 // если пользователь создан
                 if ( resJSON.isCorrect ){
 
-                    // авторизируемся
-                    var form = document.querySelector('.login__sign-in form');
+                    // сохряняем cart key
+                   var cartKey = getCartKey();
+                   // выполняем авторизацию
+                   var loginRequest = ajax.createRequest(
+                       'POST',
+                       '/wp-json/users/v1/login',
+                       function( e ){
+                           // если запрос выполнен не полностью - выходим
+                            if( e.target.readyState != 4) return;
+                            // если пустой ответ - выходим
+                            if( e.target.responseText == "" ) return;
 
-                    form.log.value = formFields.email;
-                    form.pwd.value = formFields.pass;
-                    form.submit();
+                            if( cartKey ){
+                                // если в корзине есть товары, добавляем их из сессии
+                                document.location.href = '/?cocart-load-cart=' + cartKey + '&keep-cart=false';
+                            } else {
+                                //иначе - просто перенаправляем на главную страницу
+                                document.location.href = '/';
+                            }
+                       }
+                   );
+                   loginRequest.send(JSON.stringify(formFields));
                 }
             });
 
-            // отправляем значения полкй формы
+            // отправляем значения полей формы
             request.send(JSON.stringify(formFields));
         }
         
     });
 }
 
+/**
+ * Форма авторризации
+ */
+function initLoginForm(){
+
+    var form = document.querySelector('.login-form form');
+    // Если формы нет на странице - выходим
+    if ( !form ) return;
+
+    form.addEventListener('submit', function( e ){
+
+        e.preventDefault();
+
+        // получаем значения полей формы
+        var formFields = {
+            email: form.log.value,
+            pass: form.pwd.value,
+        };
+
+        // сохряняем cart key
+        var cartKey = getCartKey();
+        var loginRequest = ajax.createRequest(
+            'POST',
+            '/wp-json/users/v1/login',
+            function( e ){
+                // если запрос выполнен не полностью - выходим
+                if( e.target.readyState != 4) return;
+                // если пустой ответ - выходим
+                if( e.target.responseText == "" ) return;
+
+                if( cartKey ){
+                    // если в корзине есть товары, добавляем их из сессии
+                    document.location.href = '/?cocart-load-cart=' + cartKey + '&keep-cart=false';
+                } else {
+                    //иначе - просто перенаправляем на главную страницу
+                    document.location.href = '/';
+                }
+            }
+
+        );
+        loginRequest.send(JSON.stringify(formFields));
+
+    });
+}
+
 module.exports = {
 
-    init: function(){
-
-        // получаем cart key cocart для сохранения корзины
-        var cartKey = getCartKey();
-        console.log( document.cookie );
-        console.log( "-----------------------" );
-        console.log( cartKey );
+    init: function(){     
         
+        initLoginForm();
         initRegisterForm();
     }
 }
