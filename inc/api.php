@@ -135,7 +135,12 @@ function new_user_endpoint ( $args ){
             $res["message"] = "Такой Email уже зарегистрирован";
             return $res;
         }
+
         wp_set_password( $pass, $user_id);
+
+        // устанавливаем роль пользователя
+        $user = get_user_by('ID', $user_id);
+        $user->set_role( 'customer' );
     }
 
     return $res;
@@ -208,9 +213,18 @@ function stores_endpoint ( $args ){
 function lookbook_endpoint( $args ){
     $res = [];
 
+    // номер страницы
+    $page_number = 1;
+
+    if( intval( $args['page']) ){
+        $page_number = intval( $args['page']);
+    }
+
     // параметры для запроса к БД
     $lb_params = array(
-        'post_type'     => 'lookbook',
+        'post_type'         => 'lookbook',
+        'posts_per_page'    => 10,
+        'paged'             => $page_number
     );
 
     // добавляем категорию в запрос    
@@ -322,6 +336,14 @@ add_action('rest_api_init', function(){
     // маршрут для получения лукбуков
     register_rest_route(
         'lookbook/v1', '/get/(?P<category>.+)',
+        array(
+            'methods'   => 'GET',
+            'callback'  => 'lookbook_endpoint'
+        )
+    );
+    // маршрут для получения лукбуков по страницам
+    register_rest_route(
+        'lookbook/v1', '/get/(?P<category>.+)/(?P<page>.+)',
         array(
             'methods'   => 'GET',
             'callback'  => 'lookbook_endpoint'
