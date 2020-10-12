@@ -26,6 +26,30 @@ class Catalog{
         this.fpCatalog = document.querySelector('.fp-catalog');
         this.catalog = document.querySelector('.catalog');
         this.lbCatalog = document.querySelector('.lb-catalog');
+        // текущая страница каталога для динамической загрузки
+        this.currentPage = 1;
+        // каталог загружается
+        this.isLoad = false;
+        // текущая категория
+        this.currentCategory = 'all';
+        // выданы все элементы каталога
+        this.isEnd = false;
+
+        if ( this.fpCatalog ) {
+            // если главная страница - подгружаем каталог динамически
+            this.addCategoriesListeners();
+            this.getCategoryItems();
+
+        } else if ( this.lbCatalog ){
+            // если каталог лукбуков
+            this.addCategoriesListeners( {lookbook: true} );
+            this.getCategoryItems( {lookbook: true} );
+            this.addScrollListener();
+            
+        } else if ( this.catalog ){
+            // если страница каталога - просто добавляем обработчики событий
+            this.addCardListeners();
+        }
     }
 
     /**
@@ -90,12 +114,13 @@ class Catalog{
                 categoriesList.classList.toggle('show');
             });
         }
+        var parrent = this;
         categoriesListItems.forEach(function( item ){
            item.addEventListener('click', function(event){
                event.preventDefault();
                var category = event.target.dataset.category;
-               getCategoryItems({
-                   category: category,
+               parrent.currentCategory = category;
+               parrent.getCategoryItems({
                    lookbook: conf.lookbook
                });
            });
@@ -108,19 +133,25 @@ class Catalog{
     getCategoryItems( args ){
 
         // определяем конфигурации функции
-        let conf = Object.assign( {
+        var conf = Object.assign( {
             lookbook: false,
-            category: 'all'
+            page: 1
         }, args  );
     
         // получаем элемент каталога
-        var catalogCards = document.querySelector('.catalog-cards');
-    
+        var catalogCards = this.catalog.querySelector('.catalog-cards');
+
         // определяем url для запроса
         if ( conf.lookbook ){
-            var reqUrl = '/wp-json/lookbook/v1/get/' + conf.category;
+            if ( conf.page ){
+
+                var reqUrl = '/wp-json/lookbook/v1/get/' + this.currentCategory + '/' + conf.page;
+            } else {
+                
+                var reqUrl = '/wp-json/lookbook/v1/get/' + this.currentCategory;
+            }
         } else {
-            var reqUrl = '/wp-json/catalog/v1/get/' + conf.category;
+            var reqUrl = '/wp-json/catalog/v1/get/' + this.currentCategory;
         }
 
         // сохраняем this в parrent
@@ -135,13 +166,20 @@ class Catalog{
     
             var resJSON = JSON.parse(event.target.responseText);
     
-            // очищае текущий элемент каталога
-            catalogCards.innerHTML = '';
+            // очищае текущий элемент каталога если первая страница
+            if( conf.page == 1 ){
+                catalogCards.innerHTML = '';
+            }
+
+            console.log(resJSON);
     
             // если каталог лукбуков - добавляем карточки лукбуков
             if( conf.lookbook ){
 
                 resJSON.forEach ( function( item ){
+
+                    // если последний элемент - устанавливаем атрибуит isEnd
+                    if( item.isEnd ) parrent.isEnd = true;
 
                     catalogCards.appendChild( lookbookCard.create( item ) );
                 });
@@ -150,12 +188,21 @@ class Catalog{
                 // иначе выводим товары
                 resJSON.forEach ( function( product ){
 
+                    // если последний элемент - устанавливаем атрибуит isEnd
+                    if( item.isEnd ) parrent.isEnd = true;
+
                     catalogCards.appendChild( catalogCard.create( product ) );
                 });
             }
+
+            //устанавливаем значение номера текущей страницы
+            parrent.currentPage = conf.page;
     
             // добавляем обработчики событий
             parrent.addCardListeners();
+
+            // убираем флаг isLoad
+            parrent.isLoad = false;
     
         });
     
@@ -163,59 +210,46 @@ class Catalog{
         catalogRequest.send();
     
     }
-}
 
-/**
- * Проверка на скрол к нижнему краю лукбука
- */
-function isCatalogBotton(){
+    /**
+     * Проверка на скрол к нижнему краю лукбука
+     */
+    isCatalogBotton(){
 
-    var lbCatalog = document.querySelector( '.lb-catalog' );
-    var catalogPosition = lbCatalog.getBoundingClientRect();
-    var catalogBottomOffset = catalogPosition.top + catalogPosition.height;
+        var catalogPosition = this.lbCatalog.getBoundingClientRect();
+        var catalogBottomOffset = catalogPosition.top + catalogPosition.height;
 
-    if( catalogBottomOffset <= window.innerHeight + 200 ){
-        console.log('scroll');
+        if( catalogBottomOffset <= window.innerHeight + 200 ){
+            return true;
+        }
+        return false;
     }
-}
 
-/**
- * Загрузка лукбуков при скролле
- */
-function addScrollListener(){
-    
-    window.addEventListener('scroll', function( e ){
+    /**
+     * Загрузка лукбуков при скролле
+     */
+    addScrollListener(){
 
-       isCatalogBotton();
-    });
+        var parrent = this;
+        window.addEventListener('scroll', function( e ){
+
+           if( parrent.isCatalogBotton() && !parrent.isLoad && !parrent.isEnd){
+
+            parrent.isLoad = true;
+            parrent.getCategoryItems({
+                page: parrent.currentPage + 1,
+                lookbook: true
+            })
+           }
+        });
+    }
 }
 
 module.exports ={
 
     init: function(){
 
-        let catalog = new Catalog;
-        /*
-        var fpCatalog = document.querySelector('.fp-catalog');
-        var catalog = document.querySelector('.catalog');
-        var lbCatalog = document.querySelector('.lb-catalog');
-        */
-        if ( catalog.fpCatalog ) {
-            // если главная страница - подгружаем каталог динамически
-            catalog.addCategoriesListeners();
-            catalog.getCategoryItems();
-
-        } else if ( catalog.lbCatalog ){
-            // если каталог лукбуков
-            catalog.addCategoriesListeners( {lookbook: true} );
-            catalog.getCategoryItems( {lookbook: true} );
-            addScrollListener();
-            
-        } else if ( catalog.catalog ){
-            // если страница каталога - просто добавляем обработчики событий
-            catalog.addCardListeners();
-        }
-        
+        let catalog = new Catalog;        
 
     }
 }

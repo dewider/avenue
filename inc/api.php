@@ -211,7 +211,8 @@ function stores_endpoint ( $args ){
  * выдача лукбуков
  */
 function lookbook_endpoint( $args ){
-    $res = [];
+
+    $res = array();
 
     // номер страницы
     $page_number = 1;
@@ -266,30 +267,39 @@ function lookbook_endpoint( $args ){
     while( $lb_loop->have_posts() ){
         $lb_loop->the_post();
 
+        $isEnd = false;
+        // проверяем, последний ли пост
+        if( $lb_loop->max_num_pages <= $page_number && 
+            $lb_loop->current_post + 1 == $lb_loop->post_count){
+
+                $isEnd = true;
+            }
+
+
         $lb_is_banner = get_field('lookbook_is_banner');
+
+        $catalog_item = array(
+            'isEnd'     => $isEnd,
+            'ID'        => get_the_ID(),
+            'title'     => get_the_title(),
+            'thumb'     => get_the_post_thumbnail_url(),
+            'price'     => get_field('lookbook_price'),
+            'isBanner'  => false
+        );
+
         // если баннер
         if( $lb_is_banner ){
 
-            array_push($res, array(
-                'isBanner'      => true,
-                'ID'            => get_the_ID(),
-                'title'         => get_the_title(),
-                'thumb'         => get_the_post_thumbnail_url(),
-                'price'         => get_field('lookbook_price'),
+            $catalog_item = array_merge($catalog_item, array(
+
                 'content'       => get_field('lookbook_banner_content'),
                 'width'         => get_field('lookbook_banner_width'),
-                'buttonText'    => get_field('lookbook_button_text')
-            ));
-        } else {
-
-            array_push($res, array(
-                'isBanner'  => false,
-                'ID'        => get_the_ID(),
-                'title'     => get_the_title(),
-                'thumb'     => get_the_post_thumbnail_url(),
-                'price'     => get_field('lookbook_price'),
+                'buttonText'    => get_field('lookbook_button_text'),
+                'isBanner'      => true
             ));
         }
+
+        array_push($res, $catalog_item);
     }
 
     return $res;
@@ -333,17 +343,17 @@ add_action('rest_api_init', function(){
         )
     );
 
-    // маршрут для получения лукбуков
+    // маршрут для получения лукбуков по страницам
     register_rest_route(
-        'lookbook/v1', '/get/(?P<category>.+)',
+        'lookbook/v1', '/get/(?P<category>.+)/(?P<page>\d+)',
         array(
             'methods'   => 'GET',
             'callback'  => 'lookbook_endpoint'
         )
     );
-    // маршрут для получения лукбуков по страницам
+    // маршрут для получения лукбуков
     register_rest_route(
-        'lookbook/v1', '/get/(?P<category>.+)/(?P<page>.+)',
+        'lookbook/v1', '/get/(?P<category>.+)',
         array(
             'methods'   => 'GET',
             'callback'  => 'lookbook_endpoint'
