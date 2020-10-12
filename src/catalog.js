@@ -170,8 +170,6 @@ class Catalog{
             if( conf.page == 1 ){
                 catalogCards.innerHTML = '';
             }
-
-            console.log(resJSON);
     
             // если каталог лукбуков - добавляем карточки лукбуков
             if( conf.lookbook ){

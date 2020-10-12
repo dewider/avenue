@@ -5,6 +5,7 @@
  */
 
 var cookie = require('cookie');
+var popup = require('./popup/popup.js');
 
 /**
  * Создает AJAX запрос
@@ -122,6 +123,12 @@ function createAddRequest(){
 
             // если запрос выполнен не полностью - выходим
             if( event.target.readyState != 4) return;
+            // если пустой ответ - выходим
+            if( event.target.responseText == "" ) return;
+    
+            var resJSON = JSON.parse(event.target.responseText);
+            // показываем попап
+            popup.show(resJSON.product_title + " добавлен в корзину")
             // получаем содержание корзины
             var getRequest = createGetRequest();
             getRequest.send();
