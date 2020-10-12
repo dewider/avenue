@@ -84,6 +84,17 @@
                     </div>
                 </div>
             </div>
+            <!-- END container -->
+            <div class="container">
+                <?php 
+                    wp_nav_menu([
+                        'theme_location'    => 'footer',
+                        'container_class'   => 'footer-menu__container',
+                        'menu_class'        => 'footer-menu',
+                        'menu'              => 'footer-menu'
+                    ])
+                ?>
+            </div>
             <div class="container">
                 <div class="footer-banners">
                     <div class="footer-banners__left">

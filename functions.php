@@ -41,6 +41,7 @@ if ( ! function_exists( 'avenue_setup' ) ) :
 		register_nav_menus(
 			array(
 				'header-menu' => esc_html__( 'header', 'Header menu' ),
+				'footer-menu' => esc_html__( 'footer', 'Footer menu' ),
 			)
 		);
 
