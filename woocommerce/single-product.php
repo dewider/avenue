@@ -37,6 +37,9 @@ get_header( 'shop' ); ?>
 		//$p_url = get_permalink($p_ID);
 		$p_gallery = wp_get_attachment_url ( $product->get_gallery_image_ids()[0] );
 		$p_currency_symbol = get_currency_symbol();
+		$p_video = get_field('video');
+		$p_specs = get_field('size_specs');
+		$p_delivery = get_field('delivery_returns');
 	?>
 
 
@@ -151,19 +154,45 @@ get_header( 'shop' ); ?>
 	                </div>
 	            </div>
 	        </div><!-- product__top -->
-	        <div class="product__bottom">
-	            <div class="product__tabs">
+	        <div class="product__bottom product-bottom">
+	            <div class="product__tabs product-tabs">
 	                <ul>
-	                    <a href="#"><li class="active">DESCRIPTION</li></a>
-	                    <a href="#"><li>VIDEO</li></a>
-	                    <a href="#"><li>SIZE & SPECS</li></a>
-	                    <a href="#"><li>DELIVERY & RETURNS</li></a>
-	                    <a href="#"><li>REVIEWS</li></a>
+	                    <li class="product-tabs__item active" data-tab="desc"><a href="#">DESCRIPTION</a></li>
+	                    <li class="product-tabs__item" data-tab="video"><a href="#">VIDEO</a></li>
+	                    <li class="product-tabs__item" data-tab="specs"><a href="#">SIZE & SPECS</a></li>
+	                    <li class="product-tabs__item" data-tab="delivery"><a href="#">DELIVERY & RETURNS</a></li>
+	                    <li class="product-tabs__item" data-tab="reviews"><a href="#">REVIEWS</a></li>
 	                </ul>
-	            </div>
-	            <div class="product__desc">
-	                <?php echo $p_desc; ?>
-	            </div>
+				</div>
+				<div class="product-bottom__content product-bottom-content">
+					<div class="product__desc product-bottom-content__item active">
+						<?php echo $p_desc; ?>
+					</div>
+					<div class="product__video product-bottom-content__item">
+						<?php echo $p_video; ?>
+					</div>
+					<div class="product__specs product-bottom-content__item">
+						<?php echo $p_specs; ?>
+					</div>
+					<div class="product__delivery product-bottom-content__item">
+						<?php echo $p_delivery; ?>
+					</div>
+					<div class="product__reviews product-bottom-content__item">
+						<?php 
+							$comments = get_comments(array(
+								'post_id' => $product_id,
+								'status' => 'approve'
+							  ));
+						
+						
+							  wp_list_comments(array(
+								'per_page' => 10,
+								'reverse_top_level' => false
+							  ), $comments);
+						?>
+						<?php echo wc_get_template_part( 'single-product', 'reviews' ); ?>
+					</div>
+				</div>
 	        </div>
 	    </div><!-- product -->
 	</div>

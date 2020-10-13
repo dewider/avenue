@@ -1,0 +1,18 @@
+.woocommerce-order{
+    .woocommerce-notice{
+        font-weight: bold;
+    }
+    p{
+        margin-bottom: 10px;
+    }
+    &-details{
+        &__title{
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+    }
+    .woocommerce-column__title{
+        margin-bottom: 3px;
+    }
+}

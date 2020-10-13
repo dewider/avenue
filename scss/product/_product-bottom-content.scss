@@ -1,0 +1,9 @@
+.product-bottom-content{
+    &__item{
+        display: none;
+        padding: 21px 15px 0 15px;
+    }
+    &__item.active{
+        display: block;
+    }
+}

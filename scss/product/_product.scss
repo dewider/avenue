@@ -1,6 +1,3 @@
-@import "_qty-selector.scss";
-@import "_product-preview.scss";
-
 .product{
     padding: 60px 0 125px 0;
     display: flex;
@@ -196,7 +193,6 @@
         }
     }
     &__desc{
-        padding: 21px 15px 0 15px;
         font-size: 13px;
         font-family: $roboto-font;
         h2{
@@ -211,6 +207,9 @@
         p:last-child{
             padding-bottom: 0;
         }
+    }
+    &__video{
+        text-align: center;
     }
 }
 
@@ -291,3 +290,7 @@
         }
     }
 }
+
+@import "_qty-selector.scss";
+@import "_product-preview.scss";
+@import "_product-bottom-content.scss";
