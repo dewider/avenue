@@ -177,20 +177,24 @@ get_header( 'shop' ); ?>
 					<div class="product__delivery product-bottom-content__item">
 						<?php echo $p_delivery; ?>
 					</div>
-					<div class="product__reviews product-bottom-content__item">
+					<div class="product__reviews product-reviews product-bottom-content__item">
+						<ul class="product-reviews__list">
 						<?php 
 							$comments = get_comments(array(
-								'post_id' => $product_id,
+								'post_id' => $p_ID,
 								'status' => 'approve'
 							  ));
 						
 						
 							  wp_list_comments(array(
-								'per_page' => 10,
+								'per_page' => 5,
 								'reverse_top_level' => false
 							  ), $comments);
 						?>
-						<?php echo wc_get_template_part( 'single-product', 'reviews' ); ?>
+						</ul>
+						<div class="product-reviews__form">
+							<?php echo wc_get_template_part( 'single-product', 'reviews' ); ?>
+						</div>
 					</div>
 				</div>
 	        </div>

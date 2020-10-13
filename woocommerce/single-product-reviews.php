@@ -39,7 +39,7 @@ if ( ! comments_open() ) {
 			?>
 		</h2>
 
-		<?php if ( have_comments() ) : ?>
+		<?php if ( have_comments() || $count >= 1 ) : ?>
 			<ol class="commentlist">
 				<?php wp_list_comments( apply_filters( 'woocommerce_product_review_list_args', array( 'callback' => 'woocommerce_comments' ) ) ); ?>
 			</ol>
@@ -72,13 +72,14 @@ if ( ! comments_open() ) {
 				$commenter    = wp_get_current_commenter();
 				$comment_form = array(
 					/* translators: %s is product title */
-					'title_reply'         => have_comments() ? esc_html__( 'Add a review', 'woocommerce' ) : sprintf( esc_html__( 'Be the first to review &ldquo;%s&rdquo;', 'woocommerce' ), get_the_title() ),
+					'title_reply'         => ( have_comments() || $count >= 1 ) ? esc_html__( 'Add a review', 'woocommerce' ) : sprintf( esc_html__( 'Be the first to review &ldquo;%s&rdquo;', 'woocommerce' ), get_the_title() ),
 					/* translators: %s is product title */
 					'title_reply_to'      => esc_html__( 'Leave a Reply to %s', 'woocommerce' ),
 					'title_reply_before'  => '<span id="reply-title" class="comment-reply-title">',
 					'title_reply_after'   => '</span>',
 					'comment_notes_after' => '',
 					'label_submit'        => esc_html__( 'Submit', 'woocommerce' ),
+					'class_submit'        => 'transparrent-button',
 					'logged_in_as'        => '',
 					'comment_field'       => '',
 				);
