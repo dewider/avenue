@@ -186,9 +186,6 @@ class Catalog{
                 // иначе выводим товары
                 resJSON.forEach ( function( product ){
 
-                    // если последний элемент - устанавливаем атрибуит isEnd
-                    if( item.isEnd ) parrent.isEnd = true;
-
                     catalogCards.appendChild( catalogCard.create( product ) );
                 });
             }

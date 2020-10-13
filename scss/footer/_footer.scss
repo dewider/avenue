@@ -4,24 +4,6 @@
 .footer{
     padding: 65px 0 0 0;
     background: #f8f8f8;
-    &__col{
-        width: 20%;
-        &-title{
-            font-size: 13px;
-            font-weight: bold;
-            padding: 0 0 34px 0;
-            text-transform: uppercase;
-            color: #575153;
-        }
-        &-list{
-            color: #727272;
-            font-size: 14px;
-            font-weight: 500;
-            ul li{
-                margin: 0 0 10px 0;
-            }
-        }
-    }
 }
 
 @media (max-width: 1199px){
@@ -36,13 +18,6 @@
 @media (max-width: 991px){
     .footer{
         padding-top: 40px;
-        &__col-title{
-            font-size: 12px;
-            padding-bottom: 20px;
-        }
-        &__col-list{
-            font-size: 11px;
-        }
     }
 }
 
@@ -51,19 +26,12 @@
         .container{
             flex-wrap: wrap;
         }
-        &__col{
-            width: 33.33333%;
-            margin-bottom: 10px;
-        }
     }
 }
 
 @media (max-width: 575px){
     .footer{
         padding-top: 25px;
-        &__col{
-            width: 50%;
-        }
         .stop-line{
             height: initial;
             padding-top: 10px;
