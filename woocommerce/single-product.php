@@ -29,6 +29,7 @@ get_header( 'shop' ); ?>
 	<?php
 		$p_price = $product->get_price();
 		$p_regular_price = $product->get_regular_price();
+		$p_price_html = $product->get_price_html();
 		$p_thumb = wp_get_attachment_image_url($product->get_image_id(), 'full');
 		$p_title = $product->get_title();
 		$p_desc = $product->get_description();
@@ -40,6 +41,11 @@ get_header( 'shop' ); ?>
 		$p_video = get_field('video');
 		$p_specs = get_field('size_specs');
 		$p_delivery = get_field('delivery_returns');
+		$p_stock_status = $product->get_stock_status();
+		$p_sku = $product->get_sku();
+		$p_reviews_count = $product->get_review_count();
+		$p_tags = $product->get_attribute('tags');
+		$p_variable = $product->is_type('variable');
 	?>
 
 
@@ -83,7 +89,7 @@ get_header( 'shop' ); ?>
 	                            <li><i class="fas fa-star"></i></li>
 	                        </ul>
 	                    </div>
-	                    <span>3 Review(s)</span>
+	                    <span><?php echo $p_reviews_count; ?> Review(s)</span>
 	                    <div class="product__add-review-button">
 	                        <button>Add a Review</button>
 	                    </div>
@@ -100,16 +106,13 @@ get_header( 'shop' ); ?>
 	                    </div>
 	                </div>
 	                <div class="product__price">
-						<?php if ( $p_price < $p_regular_price ): ?>
-						<span class="price old-price"><sup><?php echo $p_currency_symbol; ?></sup><?php echo $p_regular_price; ?></span>
-						<?php endif; ?>
-	                    <span class="price"><sup><?php echo $p_currency_symbol; ?></sup><?php echo $p_price; ?></span>
+						<?php echo $p_price_html; ?>
 	                </div>
 	                <div class="product__details">
 	                    <ul>
-	                        <li><span class="bold">AVAILABILITY:</span> In stock</li>
-	                        <li><span class="bold">PRODUCT CODE:</span> #499577</li>
-	                        <li><span class="bold">TAGS:</span> <span class="product__tags">Classic, Casual, V-neck, Loose</span></li>
+	                        <li><span class="bold">AVAILABILITY:</span> <?php echo $p_stock_status; ?></li>
+	                        <li><span class="bold">PRODUCT CODE:</span> #<?php echo $p_sku; ?></li>
+	                        <li><span class="bold">TAGS:</span> <span class="product__tags"><?php echo $p_tags; ?></span></li>
 	                    </ul>
 	                </div>
 	                <div class="product__short">
@@ -117,11 +120,11 @@ get_header( 'shop' ); ?>
 	                </div>
 	                <div class="product__specs">
 	                    <form action="#">
+							<?php if( $p_variable ): ?>
 	                        <div class="product__specs-field">
 	                            <label for="color">COLOR</label>
 	                            <select name="color">
 	                                <option value disabled selected>Select Colour</option>
-	                                <option value="Red">Red</option>
 	                                <option value="Black">Black</option>
 	                            </select>
 	                        </div>
@@ -131,8 +134,10 @@ get_header( 'shop' ); ?>
 	                                <option value disabled selected>Select Size</option>
 	                                <option value="S">S</option>
 	                                <option value="M">M</option>
+	                                <option value="L">L</option>
 	                            </select>
-	                        </div>
+							</div>
+							<?php endif; ?>
 	                        <div class="product__specs-field">
 	                            <label for="qty">QTY</label>
 	                            <div class="qty-selector">

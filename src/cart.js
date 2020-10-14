@@ -304,7 +304,7 @@ function render(data){
     },
 
     // добавление в корзину
-    add: function( id, qty ){
+    add: function( id, qty, vID ){
 
         if ( !id ) return;
         
@@ -316,6 +316,11 @@ function render(data){
         if ( qty && qty > 0 ){
 
             Object.assign(requestData, {"quantity": qty})
+        }
+
+        if( vID ){
+
+            Object.assign( requestData, {"variation_id": vID})
         }
 
         var addRequest = createAddRequest();

@@ -62,6 +62,19 @@ body{
         font-size: 0.6em;
     }
 }
+.woocs_price_code{
+    .woocommerce-Price-currencySymbol{
+        font-size: 0.6em;
+        vertical-align: super;
+        margin-right: -0.4em;
+    }
+    del{
+        margin-right: 0.3em;
+    }
+    ins{
+        text-decoration: none;
+    }
+}
 .old-price{
     text-decoration: line-through;
     margin-right: 15px;

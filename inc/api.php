@@ -305,6 +305,20 @@ function lookbook_endpoint( $args ){
     return $res;
 }
 
+/**
+ * получение вариаций товара
+ */
+function product_variations_endpoint( $args ){
+
+    if( intval( $args['id']) ){
+        $p_ID = intval( $args['id']);
+    }
+
+    $product = wc_get_product( $p_ID );
+
+    return $product->get_available_variations();
+}
+
 
 // Регистрация машрутов API
 add_action('rest_api_init', function(){
@@ -334,6 +348,15 @@ add_action('rest_api_init', function(){
         )
     );
 
+    // авторизация пользователя
+    register_rest_route(
+        'users/v1', '/login',
+        array(
+            'methods'   => 'POST',
+            'callback'  => 'user_login_endpoint'
+        )
+    );
+
     // маршрут для запроса информации по магазину
     register_rest_route(
         'stores/v1', '/get/(?P<id>\d+)',
@@ -360,12 +383,12 @@ add_action('rest_api_init', function(){
         )
     );
 
-    // авторизация пользователя
+    // получение атрибутов товара
     register_rest_route(
-        'users/v1', '/login',
+        'product/v1', '/variations/(?P<id>.\d+)',
         array(
-            'methods'   => 'POST',
-            'callback'  => 'user_login_endpoint'
+            'methods'   => 'GET',
+            'callback'  => 'product_variations_endpoint'
         )
     );
 });
